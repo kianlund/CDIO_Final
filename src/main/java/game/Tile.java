@@ -15,10 +15,10 @@ public class Tile {
     private GUI_Field gui_field;
     private Color tileColor;
 
-    public Tile (int number1, String description1, int effect1, GUI_Field gui_field1){
+    public Tile (int number1, String description1, int theRent, GUI_Field gui_field1){
         this.number=number1;
         description=description1;
-        rent =effect1;
+        rent =theRent;
         gui_field=gui_field1;
         gui_field.setTitle(description);
         gui_field.setSubText(Integer.toString(number));
@@ -63,10 +63,8 @@ public class Tile {
         return gui_field;
     }
 
-    public void showMessage(Player player){
-        System.out.println(player.getName() + this.description + "penis");
-    }
-
     public int getNumber() {return number;}
+
+    public String getDescription(){return description;}
 }
 
