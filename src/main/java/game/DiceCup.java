@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class DiceCup {
     private final int numberOfDice;
-    private ArrayList<Dice> diceIncup;
+    private Dice[] diceIncup;
     private int sum;
 
 
-    public DiceCup(int numOfDice, ArrayList<Integer> sidesOfDice) {
+    public DiceCup(int numOfDice, int[]diceArray, sidesOfDice) {
         numberOfDice = numOfDice;
-        diceIncup = new ArrayList<>();
+        diceIncup = new Dice[numOfDice];
         for (int i = 0; i > numOfDice; i++) {
             Dice d;
             if (sidesOfDice.size() >= i) {
                 d = new Dice(sidesOfDice.get(i));
-                diceIncup.add(d);
+                diceIncup[i]=d;
             } else {
                 d = new Dice();
-                diceIncup.add(d);
+                diceIncup[i]=d;
             }
         }
     }
