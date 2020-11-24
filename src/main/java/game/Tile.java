@@ -25,8 +25,8 @@ public class Tile {
         owner = null;
     }
 
-    public Tile (int effect1, GUI_Field gui_field1, int num){
-        rent =effect1;
+    public Tile (int theRent, GUI_Field gui_field1, int num){
+        rent =theRent;
         gui_field=gui_field1;
         tileColor=null;
         this.number=num;
@@ -44,10 +44,11 @@ public class Tile {
 
     public void setOwner(Player owner) {
         //gui_field.setTitle(Main.tileStrings.getLine(number)+" ["+owner.getName()+"]");
+        this.owner = owner;
         ((GUI_Street) gui_field).setHouses(1);
         ((GUI_Street) gui_field).setOwnerName(owner.getName());
         ((GUI_Street) gui_field).setRent(Integer.toString(rent));
-        this.owner = owner;
+
     }
 
     public Color getTileColor() {

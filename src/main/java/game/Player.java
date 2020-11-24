@@ -30,7 +30,6 @@ public class Player extends GUI_Player {
 
     public boolean getBankrupt(){ return bankrupt;}
 
-    //adds to gamescore
     public void addToBalance(int balanceGain) {
         setBalance(getBalance()+balanceGain) ;
     }
@@ -120,7 +119,7 @@ public class Player extends GUI_Player {
     }
 
     public boolean removeGetOutOfJailCard(int amount){
-        if (getOutOfJailCards < 0){
+        if (getOutOfJailCards > 0){
             getOutOfJailCards -= amount;
             return true;
         }
@@ -128,19 +127,34 @@ public class Player extends GUI_Player {
     }
 
     public void startFromPrison(Game game){
-        game.getGui().showMessage(game.getTextStrings().playerInprison);
+        try {
+            game.getGui().showMessage(game.getTextStrings().playerInprison);
+        }
+        catch (NullPointerException e) {
+            System.err.println("No game initialized");
+        }
         if(getOutOfJailCards > 0){
             removeGetOutOfJailCard(1);
-            game.getGui().showMessage(game.getTextStrings().useJailCard);
+            try {
+                game.getGui().showMessage(game.getTextStrings().useJailCard);
+            }
+            catch (NullPointerException e) {
+                System.err.println("No game initialized");
+            }
             prison = false;
         }
         else{
             if (withdrawFromBalance(2)){
-                game.getGui().showMessage(game.getTextStrings().payBail);
+                try {
+                    game.getGui().showMessage(game.getTextStrings().payBail);
+                }
+                catch (NullPointerException e) {
+                    System.err.println("No game initialized");
+                }
                 prison = false;
             }
         }
-
     }
 }
+
 

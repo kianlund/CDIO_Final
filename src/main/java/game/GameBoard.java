@@ -94,5 +94,7 @@ public class GameBoard {
         }
         return tile.getRent();
     }
+
+
 }
 
