@@ -26,6 +26,7 @@ public class Game {
     private Text textStrings;
     private static TileHandler tileHandler;
 
+    private Language langStrings = new Language("engGameStrings.txt");
 
     public Game(Boolean test){
         initGUIFields();
@@ -56,7 +57,7 @@ public class Game {
         chanceCards = new ChanceCards(this);
         textStrings = new Text(this);
         tileHandler = new TileHandler(prisonLocation);
-        totalNumPlayers = gui.getUserInteger(Main.langStrings.getLine(0)+". 1-"+maxNumberOfPlayers,1,maxNumberOfPlayers);
+        totalNumPlayers = gui.getUserInteger(langStrings.getLine(0)+". 1-"+maxNumberOfPlayers,1,maxNumberOfPlayers);
 
         if (totalNumPlayers>4){
             decideStartBalance(maxNumberOfPlayers);
@@ -119,7 +120,7 @@ public class Game {
                 if (player.getPrison()){
                     player.startFromPrison(this);
                 }
-                gui.getUserButtonPressed(playerList[i].getName()+Main.langStrings.getLine(2),Main.langStrings.getLine(4));
+                gui.getUserButtonPressed(playerList[i].getName()+langStrings.getLine(2),langStrings.getLine(4));
                 cup.rollDice();
                 int a = cup.getDiceinCup().get(0).getValue();
 //                int a = 1;
@@ -127,7 +128,7 @@ public class Game {
                 player.moveLocation(a, this);
                 gui.getFields()[player.getLocation()].setCar(player, true);
                 if (player.getBankrupt()) {
-                    gui.showMessage(player.getName() + Main.langStrings.getLine(5));
+                    gui.showMessage(player.getName() + langStrings.getLine(5));
                     resolveGame(player,winnerID);
                     winnerID=100; //Why wont the loop stop without this?!?!?!
                     break;
@@ -148,7 +149,7 @@ public class Game {
             if (playerList[j].getBalance() == highestBalance){ numWinners++; winner = j; }
         }
         if (numWinners == 1) {
-            gui.showMessage(playerList[winner].getName()+Main.langStrings.getLine(3));
+            gui.showMessage(playerList[winner].getName()+langStrings.getLine(3));
         } else {
             for (int i = 0; i < playerList.length; i++) {
                 totalValue[i] = playerList[i].getBalance();
@@ -162,8 +163,8 @@ public class Game {
             for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,totalValue[j]); }
             for (int j = 0; j < playerList.length; j++) {
                 if (totalValue[j] == highestBalance){
-                    gui.showMessage(Main.langStrings.getLine(6));
-                    gui.showMessage(playerList[j].getName()+Main.langStrings.getLine(3));
+                    gui.showMessage(langStrings.getLine(6));
+                    gui.showMessage(playerList[j].getName()+langStrings.getLine(3));
                     break;
                 }
             }
@@ -176,7 +177,7 @@ public class Game {
             GUI_Car car = new GUI_Car();
             car.setPrimaryColor(colors[i]);
 
-            Player p = new Player(gui.getUserString(Main.langStrings.getLine(1)+" "+(i+1)+"."), startBalance, startLocation, car, tileHandler);
+            Player p = new Player(gui.getUserString(langStrings.getLine(1)+" "+(i+1)+"."), startBalance, startLocation, car, tileHandler);
             gui.addPlayer(p);
             playerList[i] = p;
             gui.getFields()[p.getLocation()].setCar(p, true);

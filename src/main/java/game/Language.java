@@ -10,7 +10,10 @@ public class Language {
 
     public Language(String textFile) {
         try {
-            reader = new BufferedReader(new FileReader(textFile));
+            InputStream is = Language.class.getResourceAsStream("/"+textFile);
+            InputStreamReader isReader = new InputStreamReader(is);
+            reader = new BufferedReader(isReader);
+            //reader = new BufferedReader(new FileReader(textFile));
             contentLine = reader.readLine();
             counter = 0;
 
@@ -18,31 +21,27 @@ public class Language {
             while (contentLine != null) { contentLine = reader.readLine(); counter++; }
             strContainer = new String[counter];
             strContainer[0] = "";
-            reader.close();
+            //reader.close();
 
             //Repeat read (so it starts from the beginning)
-            reader = new BufferedReader(new FileReader(textFile));
+            is = Language.class.getResourceAsStream("/"+textFile);
+            isReader = new InputStreamReader(is);
+            reader = new BufferedReader(isReader);
             contentLine = reader.readLine();
             counter = 0;
 
             while (contentLine != null) {
-/*                if (contentLine.charAt(0) == '#') {     // If string starts with '#' then skip to and add next line to array.
-                    contentLine = reader.readLine();
-                    strContainer[counter] = contentLine;
-                    counter++;
-                    break;
-                }*/
                 strContainer[counter] = contentLine;
                 counter++;
                 contentLine = reader.readLine();
             }
 
-            reader.close();
+            //reader.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("File not found error.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("IOException error.");
         }
 
     }

@@ -19,18 +19,20 @@ public class GameBoard {
     private int colorCounter;
     private int arraySize;
 
+    private Language tileStrings = new Language("engTileStrings.txt");
+
     public GameBoard (int numOfTiles, GUI_Field[] gui_fields) {
         tiles = new Tile[numOfTiles];
         //tiles[0] = new Tile();
         for (int i = 0; i < numOfTiles; i++) {
             tiles[i] = new Tile(effects[i],gui_fields[i], i);
             if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Start) {
-                tiles[i].getGui_field().setTitle(Main.tileStrings.getLine(i));
+                tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
                 tiles[i].getGui_field().setSubText("M"+effects[i]);
-                tiles[i].getGui_field().setDescription(Main.tileStrings.getLine(i));
+                tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             } else {
-                tiles[i].getGui_field().setSubText(Main.tileStrings.getLine(i));
-                tiles[i].getGui_field().setDescription(Main.tileStrings.getLine(i));
+                tiles[i].getGui_field().setSubText(tileStrings.getLine(i));
+                tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             }
         }
 

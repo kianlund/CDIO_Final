@@ -29,7 +29,7 @@ public class Text {
     int location;
 
     public Text(Game game) {
-        textStrings = new Language("resources/engFieldText.txt");
+        textStrings = new Language("engFieldText.txt");
         int i = 0;
         landString = textStrings.getLine(i++);
         unOwnedString = textStrings.getLine(i++);

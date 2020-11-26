@@ -43,7 +43,6 @@ public class Tile {
     }
 
     public void setOwner(Player owner) {
-        //gui_field.setTitle(Main.tileStrings.getLine(number)+" ["+owner.getName()+"]");
         this.owner = owner;
         ((GUI_Street) gui_field).setHouses(1);
         ((GUI_Street) gui_field).setOwnerName(owner.getName());
