@@ -122,7 +122,7 @@ public class Game {
                 }
                 gui.getUserButtonPressed(playerList[i].getName()+langStrings.getLine(2),langStrings.getLine(4));
                 cup.rollDice();
-                int a = cup.getDiceinCup().get(0).getValue();
+                int a = cup.getDiceinCup()[0].getValue();
 //                int a = 1;
                 gui.setDie(a);
                 player.moveLocation(a, this);

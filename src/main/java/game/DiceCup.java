@@ -1,20 +1,18 @@
 package game;
 
-import java.util.ArrayList;
-
 public class DiceCup {
     private final int numberOfDice;
     private Dice[] diceIncup;
     private int sum;
 
 
-    public DiceCup(int numOfDice, int[]diceArray, sidesOfDice) {
+    public DiceCup(int numOfDice, int[]diceArray, int[] sidesOfDice) {
         numberOfDice = numOfDice;
         diceIncup = new Dice[numOfDice];
         for (int i = 0; i > numOfDice; i++) {
             Dice d;
-            if (sidesOfDice.size() >= i) {
-                d = new Dice(sidesOfDice.get(i));
+            if (sidesOfDice.length == i) { 
+                d = new Dice(sidesOfDice[i]);
                 diceIncup[i]=d;
             } else {
                 d = new Dice();
@@ -24,24 +22,24 @@ public class DiceCup {
     }
     public DiceCup(int numOfDice){
         numberOfDice = numOfDice;
-        diceIncup = new ArrayList<Dice>();
+        diceIncup = new Dice[numOfDice];
         for (int i = 0; i<numOfDice; i++){
             Dice d;
             d = new Dice();
-            diceIncup.add(d);
+            diceIncup[i]=d;
         }
     }
     public void rollDice(){
         sum =0 ;
-        for (int i = 0; i < diceIncup.size(); i++) {
-            sum += diceIncup.get(i).roll();
+        for (int i = 0; i < diceIncup.length; i++) {
+            sum += diceIncup[i].roll();
         }
     }
     public int getNumberOfDice(){
         return numberOfDice;
     }
 
-    public ArrayList<Dice> getDiceinCup(){
+    public Dice[] getDiceinCup(){
         return diceIncup;
     }
     public int getSum(){
