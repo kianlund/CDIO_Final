@@ -15,7 +15,6 @@ public class Main {
         }
         else {
             Game game = new Game();
-            //test 1
         }
     }
 }
