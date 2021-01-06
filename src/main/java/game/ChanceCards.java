@@ -23,7 +23,7 @@ public class ChanceCards {
 
     public void DrawCard(Player player){
 
-        int a = rand.nextInt(9);
+        int a = rand.nextInt(1);
 //        int a = 8;
         switch (a){
             case(0):
