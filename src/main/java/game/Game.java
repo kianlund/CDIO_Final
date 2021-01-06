@@ -12,7 +12,7 @@ public class Game {
     private DiceCup cup;
     private GameBoard board;
     private GUI gui;
-    private int startBalance ;
+    private int startBalance = 30000;
     private final int startLocation = 0;
     private final int numberOfTiles = 40;
     private final int prisonLocation = 6;
@@ -34,7 +34,6 @@ public class Game {
         textStrings = new Text(this);
         tileHandler = new TileHandler(prisonLocation);
         totalNumPlayers = 4;
-        decideStartBalance(totalNumPlayers);
         String[] playerNames = {"Thor", "Tobias", "Kian", "Sume"};
         playerList = new Player[totalNumPlayers];
         for(int i = 0; i < totalNumPlayers; i++){
@@ -58,14 +57,11 @@ public class Game {
         totalNumPlayers = gui.getUserInteger(langStrings.getLine(0)+". 1-"+maxNumberOfPlayers,1,maxNumberOfPlayers);
 
         if (totalNumPlayers>maxNumberOfPlayers){
-            decideStartBalance(maxNumberOfPlayers);
             addPlayers(maxNumberOfPlayers);
         }
         else if(totalNumPlayers<1){
-            decideStartBalance(1);
             addPlayers(1);
         }else {
-                decideStartBalance(totalNumPlayers);
                 addPlayers(totalNumPlayers);
         }
 
@@ -92,6 +88,8 @@ public class Game {
                 fields[i] = new GUI_Shipping();
             } else if (i == 12 || i == 28) {
                 fields[i] = new GUI_Brewery();
+            } else if (i == 4 || i == 38) {
+                fields[i] = new GUI_Tax();
             } else {
                 fields[i] = new GUI_Street();
             }
@@ -217,23 +215,4 @@ public class Game {
 
     public Text getTextStrings(){ return textStrings;}
 
-    public void decideStartBalance(int numberOfPlayers){
-        switch (numberOfPlayers){
-            case(1):
-                startBalance = 22;
-            break;
-            case(2):
-                startBalance = 20;
-            break;
-            case(3):
-                startBalance = 18;
-            break;
-            case(4):
-                startBalance = 16;
-            break;
-            default:
-                startBalance = 12;
-            break;
-        }
-    }
 }

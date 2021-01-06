@@ -1,10 +1,8 @@
 package game;
 
-import com.company.Main;
 import gui_fields.*;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 
 
 /**
@@ -13,16 +11,16 @@ import java.lang.reflect.Array;
  */
 public class GameBoard {
     private Tile[] tiles;
-    private final int[] effects={4000,1,1,0,
-                                    1,1,0,2,
-                                    2,0,2,2,
-                                    0,3,3,0,
-                                    3,3,0,4,
-                                    4,0,5,5,
-                                    0,0,0,0,
-                                    0,0,0,0,
-                                    0,0,0,0,
-                                    0,0,0,0};
+    private final int[] tilePrice ={4000,1200,0,1200,
+                                    0,4000,2000,0,
+                                    2000,2400,0,2800,
+                                    3000,2800,3200,4000,
+                                    3600,0,3600,4000,
+                                    0,4400,0,4400,
+                                    4800,4000,5200,5200,
+                                    3000,5600,0,6000,
+                                    6000,0,6400,4000,
+                                    0,7000,0,8000};
     private final Color[] tileColor = {Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.PINK, Color.WHITE};
     private int[][] colorArr;
     private int colorCounter;
@@ -34,19 +32,24 @@ public class GameBoard {
         tiles = new Tile[numOfTiles];
         //tiles[0] = new Tile();
         for (int i = 0; i < numOfTiles; i++) {
-            tiles[i] = new Tile(effects[i],gui_fields[i], i);
-            if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Shipping) {
+            tiles[i] = new Tile(tilePrice[i],gui_fields[i], i);
+            if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Brewery || gui_fields[i] instanceof GUI_Shipping) {
                 tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
-                tiles[i].getGui_field().setSubText("Pris: "+effects[i]+"kr.");
+                tiles[i].getGui_field().setSubText("Pris: "+ tilePrice[i]+"kr.");
                 tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             } else if (gui_fields[i] instanceof GUI_Start) {
                 tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
-                tiles[i].getGui_field().setSubText("+"+effects[i]+"kr.");
+                tiles[i].getGui_field().setSubText("+"+ tilePrice[i]+"kr.");
+                tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
+            } else if (gui_fields[i] instanceof GUI_Tax) {
+                tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
+                tiles[i].getGui_field().setSubText("");
                 tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             } else {
                 tiles[i].getGui_field().setSubText(tileStrings.getLine(i));
                 tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             }
+
         }
 
 //        //Setup board colors
