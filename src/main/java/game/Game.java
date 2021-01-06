@@ -14,13 +14,11 @@ public class Game {
     private GUI gui;
     private int startBalance ;
     private final int startLocation = 0;
-    private final int numberOfTiles = 24;
+    private final int numberOfTiles = 40;
     private final int prisonLocation = 6;
-    private final int goToJailLocation = 18;
     private final int maxNumberOfPlayers = 4;
-    private final int chancePerSide = 1;
     private final Color[] colors= {Color.RED, Color.BLUE, Color.GREEN,
-                            Color.YELLOW,/*, Color.CYAN, Color.PINK};*/};
+                            Color.YELLOW, Color.CYAN, Color.PINK};
     private ChanceCards chanceCards;
     private GUI_Field[] fields;
     private Text textStrings;
@@ -59,7 +57,7 @@ public class Game {
         tileHandler = new TileHandler(prisonLocation);
         totalNumPlayers = gui.getUserInteger(langStrings.getLine(0)+". 1-"+maxNumberOfPlayers,1,maxNumberOfPlayers);
 
-        if (totalNumPlayers>4){
+        if (totalNumPlayers>maxNumberOfPlayers){
             decideStartBalance(maxNumberOfPlayers);
             addPlayers(maxNumberOfPlayers);
         }
@@ -79,36 +77,49 @@ public class Game {
 
     private void initGUIFields() {
         fields = new GUI_Field[numberOfTiles];
-        int sideLength = numberOfTiles/4;
-        final int chanceFreq = sideLength/(chancePerSide*2);
+        //int sideLength = numberOfTiles/4;
+        //final int chanceFreq = sideLength/(chancePerSide*2);
         int i =0;
         fields[i] = new GUI_Start();
-        for( i = 1; i<numberOfTiles; i++){
-            if(i%chanceFreq == 0){
-                if(i%2 == 0 ){ //Only works with this size
-                    switch (i){
-                        case(0):
-                            fields[i] =  new GUI_Start();
-                            break;
-                        case(prisonLocation):
-                            fields[i] = new GUI_Jail();
-                        break;
-                        case(12):
-                            fields[i] = new GUI_Refuge();
-                        break;
-                        case(goToJailLocation):
-                            fields[i] = new GUI_Jail();
-                        break;
-                    }
-                }
-                else {
-                    fields[i] = new GUI_Chance();
-                }
-            }
-            else{
-                fields[i]= new GUI_Street();
+        for( i = 1; i<numberOfTiles; i++) {
+            if (i == 2 || i == 7 || i == 17 || i == 22 || i == 33 || i == 36) {
+                fields[i] = new GUI_Chance();
+            } else if (i == 10 || i == 30) {
+                fields[i] = new GUI_Jail();
+            } else if (i == 20) {
+                fields[i] = new GUI_Refuge();
+            } else if (i == 5 || i == 15 || i == 25 || i == 35) {
+                fields[i] = new GUI_Shipping();
+            } else if (i == 12 || i == 28) {
+                fields[i] = new GUI_Brewery();
+            } else {
+                fields[i] = new GUI_Street();
             }
         }
+//            if(i%chanceFreq == 0){
+//                if(i%2 == 0 ){ //Only works with this size
+//                    switch (i){
+//                        case(0):
+//                            fields[i] =  new GUI_Start();
+//                            break;
+//                        case(prisonLocation):
+//                            fields[i] = new GUI_Jail();
+//                        break;
+//                        case(12):
+//                            fields[i] = new GUI_Refuge();
+//                        break;
+//                        case(goToJailLocation):
+//                            fields[i] = new GUI_Jail();
+//                        break;
+//                    }
+//                }
+//                else {
+//                    fields[i] = new GUI_Chance();
+//                }
+//            }
+//            else{
+//                fields[i]= new GUI_Street();
+//            }
     }
 
     public void playGame() {

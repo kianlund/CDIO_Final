@@ -64,8 +64,8 @@ public class Player extends GUI_Player {
     public void moveLocation(int moveNumber, Game game){
         tilehandler.removeOneCar(game, this);
         location += moveNumber;
-        while (location >= 24) {
-            location -= 24;
+        while (location >= 40) {
+            location -= 40;
             game.getGui().showMessage(game.getTextStrings().passedStart
                     + game.getTextStrings().moneyMessage(2));
             addToBalance(2);

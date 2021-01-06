@@ -13,22 +13,35 @@ import java.lang.reflect.Array;
  */
 public class GameBoard {
     private Tile[] tiles;
-    private final int[] effects={2,1,1,0,1,1,0,2,2,0,2,2,0,3,3,0,3,3,0,4,4,0,5,5};
+    private final int[] effects={4000,1,1,0,
+                                    1,1,0,2,
+                                    2,0,2,2,
+                                    0,3,3,0,
+                                    3,3,0,4,
+                                    4,0,5,5,
+                                    0,0,0,0,
+                                    0,0,0,0,
+                                    0,0,0,0,
+                                    0,0,0,0};
     private final Color[] tileColor = {Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.PINK, Color.WHITE};
     private int[][] colorArr;
     private int colorCounter;
     private int arraySize;
 
-    private Language tileStrings = new Language("engTileStrings.txt");
+    private Language tileStrings = new Language("dkTileStrings.txt");
 
     public GameBoard (int numOfTiles, GUI_Field[] gui_fields) {
         tiles = new Tile[numOfTiles];
         //tiles[0] = new Tile();
         for (int i = 0; i < numOfTiles; i++) {
             tiles[i] = new Tile(effects[i],gui_fields[i], i);
-            if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Start) {
+            if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Shipping) {
                 tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
-                tiles[i].getGui_field().setSubText("M"+effects[i]);
+                tiles[i].getGui_field().setSubText("Pris: "+effects[i]+"kr.");
+                tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
+            } else if (gui_fields[i] instanceof GUI_Start) {
+                tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
+                tiles[i].getGui_field().setSubText("+"+effects[i]+"kr.");
                 tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             } else {
                 tiles[i].getGui_field().setSubText(tileStrings.getLine(i));
@@ -36,24 +49,24 @@ public class GameBoard {
             }
         }
 
-        //Setup board colors
-        colorCounter = 0;
-        arraySize = 2;
-        colorArr = new int[tileColor.length][arraySize];
-        // Doesn't scale with board size, arraySize is the number of color-grouped tiles
-        int j = 0;
-        for (int i = 1; i < numOfTiles; i++) {
-            if (gui_fields[i] instanceof GUI_Street) {
-
-                tiles[i].setTileColor(tileColor[colorCounter]);
-                tiles[i].getGui_field().setBackGroundColor(tileColor[colorCounter]);
-                colorArr[colorCounter][j++] = i;
-            }
-            else {
-                j = 0;
-                colorCounter++;
-            }
-        }
+//        //Setup board colors
+//        colorCounter = 0;
+//        arraySize = 2;
+//        colorArr = new int[tileColor.length][arraySize];
+//        // Doesn't scale with board size, arraySize is the number of color-grouped tiles
+//        int j = 0;
+//        for (int i = 1; i < numOfTiles; i++) {
+//            if (gui_fields[i] instanceof GUI_Street) {
+//
+//                tiles[i].setTileColor(tileColor[colorCounter]);
+//                tiles[i].getGui_field().setBackGroundColor(tileColor[colorCounter]);
+//                colorArr[colorCounter][j++] = i;
+//            }
+//            else {
+//                j = 0;
+//                colorCounter++;
+//            }
+//        }
     }
 
     public Tile getTile(int num){
