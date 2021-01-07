@@ -67,7 +67,7 @@ public class Game {
 
 
 
-        cup = new DiceCup(1);
+        cup = new DiceCup(2);
         playGame();
     }
 
@@ -132,9 +132,10 @@ public class Game {
                 gui.getUserButtonPressed(playerList[i].getName()+langStrings.getLine(2),langStrings.getLine(4));
                 cup.rollDice();
                 int a = cup.getDiceinCup()[0].getValue();
+                int b = cup.getDiceinCup()[1].getValue();
 //                int a = 1;
-                gui.setDie(a);
-                player.moveLocation(a, this);
+                gui.setDice(a,b);
+                player.moveLocation(a+b, this);
                 gui.getFields()[player.getLocation()].setCar(player, true);
                 if (player.getBankrupt()) {
                     gui.showMessage(player.getName() + langStrings.getLine(5));
