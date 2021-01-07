@@ -21,9 +21,10 @@ public class GameBoard {
                                     3000,5600,0,6000,
                                     6000,0,6400,4000,
                                     0,7000,0,8000};
-    private final Color[] tileColor = {Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.PINK, Color.WHITE};
+    private final Color[] tileColor = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.RED, Color.WHITE, Color.PINK, Color.CYAN};
     private int[][] colorArr;
     private int colorCounter;
+    private int tileCounter;
     private int arraySize;
 
     private Language tileStrings = new Language("dkTileStrings.txt");
@@ -52,24 +53,39 @@ public class GameBoard {
 
         }
 
-//        //Setup board colors
-//        colorCounter = 0;
-//        arraySize = 2;
-//        colorArr = new int[tileColor.length][arraySize];
-//        // Doesn't scale with board size, arraySize is the number of color-grouped tiles
-//        int j = 0;
-//        for (int i = 1; i < numOfTiles; i++) {
-//            if (gui_fields[i] instanceof GUI_Street) {
-//
-//                tiles[i].setTileColor(tileColor[colorCounter]);
-//                tiles[i].getGui_field().setBackGroundColor(tileColor[colorCounter]);
-//                colorArr[colorCounter][j++] = i;
-//            }
-//            else {
-//                j = 0;
-//                colorCounter++;
-//            }
-//        }
+        //Setup board colors
+        colorCounter = 1;
+        arraySize = 3;
+        tileCounter = 0;
+        colorArr = new int[tileColor.length][arraySize];
+
+        //Set colors manually of tiles of 2
+        tiles[1].setTileColor(tileColor[0]);
+        tiles[1].getGui_field().setBackGroundColor(tileColor[0]);
+        tiles[3].setTileColor(tileColor[0]);
+        tiles[3].getGui_field().setBackGroundColor(tileColor[0]);
+        tiles[37].setTileColor(tileColor[7]);
+        tiles[37].getGui_field().setBackGroundColor(tileColor[7]);
+        tiles[39].setTileColor(tileColor[7]);
+        tiles[39].getGui_field().setBackGroundColor(tileColor[7]);
+
+        //Set colors of tiles of 3
+        int j = 0;
+        for (int i = 5; i < 35; i++) {
+            if (gui_fields[i] instanceof GUI_Street) {
+                tiles[i].setTileColor(tileColor[colorCounter]);
+                tiles[i].getGui_field().setBackGroundColor(tileColor[colorCounter]);
+                colorArr[colorCounter][j++] = i;
+                tileCounter++;
+                if (tileCounter == 3) {
+                    colorCounter++;
+                    tileCounter = 0;
+                }
+            }
+            else {
+                j = 0;
+            }
+        }
     }
 
     public Tile getTile(int num){
