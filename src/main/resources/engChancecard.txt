@@ -1,0 +1,22 @@
+You've drawn a Chance card.
+Move to start.
+Move 5 tiles forward.
+You have eaten too much candy. Pay M-2 to the bank.
+You have done all your homework. Get M-2 from the bank.
+It's your birthday, all players donate M-1 to you.
+Get out of jail free. You can keep this card until you need it.
+Move to the next unowned [Color] tile and get it for free. If there's none you have to pay your rent
+Move to the [Last Tile]
+Move to the next unowned [Color1] or [Color2] tile if it is unowned, you get it for free. If not you have to pay for rent.
+ got
+ for free
+red
+yellow
+green
+blue
+orange
+cyan
+pink
+white
+
+

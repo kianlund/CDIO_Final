@@ -1,13 +1,14 @@
 package game;
 
 import gui_fields.*;
+import gui_main.GUI;
 
 public class TileHandler{
     private int prisonNumber;
     public TileHandler(int prisonAt){
         prisonNumber = prisonAt;
     }
-
+    private GUI gui;
     /**
      * removes the players car from the field and redraws the others
      * @param game the game
@@ -38,6 +39,7 @@ public class TileHandler{
      * @param tile the tile the player lands on
      */
     public void landOnField(Tile tile, Game game, Player player) {
+
         Text textStrings = game.getTextStrings();
         tile.getGui_field().setCar(player, true);
         int tileRent;
@@ -46,9 +48,10 @@ public class TileHandler{
         if(tile.getGui_field() instanceof GUI_Street) {
 
             textStrings.TileMessage(player);
-            if (tile.getOwner() == null){
-                player.buyTile(player, tile, false);
-            } else if (tile.getOwner() != player && tile.getOwner() != null) {
+            if (tile.getOwner() == null) {
+                    player.buyTile(player, tile, false);
+                }
+            else if (tile.getOwner() != player && tile.getOwner() != null) {
                 GameBoard b = game.getBoard();
                 tempTileNumber = b.getColorArray(tile.getTileColor())[0];
                 if (b.getTiles()[tempTileNumber].getOwner() ==
