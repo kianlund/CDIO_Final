@@ -124,6 +124,13 @@ public class Game {
         {
             for (int i = 0; i < playerList.length; i++) {   //A full round
                 Player player = playerList[i];
+                playerList[0].withdrawFromBalance(20000);
+                while (player.getBankrupt()) {
+                    i++;
+                    if (i == playerList.length) {i = 0;}
+                    player = playerList[i];
+                }
+
                 if (player.getPrison()){
                     player.startFromPrison(this);
                 }
@@ -138,7 +145,6 @@ public class Game {
                 if (player.getBankrupt()) {
                     gui.showMessage(player.getName() + langStrings.getLine(5));
                     resolveGame(player,winnerID);
-                    winnerID=100; //Why wont the loop stop without this?!?!?!
                     break;
                 }
             }
@@ -146,37 +152,37 @@ public class Game {
     }
 
     private void resolveGame(Player p, int winner) {
-        int highestBalance;
-        int numWinners;
-        int[] totalValue = new int[playerList.length];
-
-        highestBalance = 0;
-        numWinners = 0;
-        for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,playerList[j].getBalance()); }
-        for (int j = 0; j < playerList.length; j++) {
-            if (playerList[j].getBalance() == highestBalance){ numWinners++; winner = j; }
-        }
-        if (numWinners == 1) {
-            gui.showMessage(playerList[winner].getName()+langStrings.getLine(3));
-        } else {
-            for (int i = 0; i < playerList.length; i++) {
-                totalValue[i] = playerList[i].getBalance();
-                for (int j = 0; j < numberOfTiles; j++) {
-                    if (board.getTiles()[j].getOwner() == playerList[i]) {
-                        totalValue[i] += board.getTiles()[i].getPrice();
-                    }
-                }
-            }
-            highestBalance = 0;
-            for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,totalValue[j]); }
-            for (int j = 0; j < playerList.length; j++) {
-                if (totalValue[j] == highestBalance){
-                    gui.showMessage(langStrings.getLine(6));
-                    gui.showMessage(playerList[j].getName()+langStrings.getLine(3));
-                    break;
-                }
-            }
-        }
+//        int highestBalance;
+//        int numWinners;
+//        int[] totalValue = new int[playerList.length];
+//
+//        highestBalance = 0;
+//        numWinners = 0;
+//        for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,playerList[j].getBalance()); }
+//        for (int j = 0; j < playerList.length; j++) {
+//            if (playerList[j].getBalance() == highestBalance){ numWinners++; winner = j; }
+//        }
+//        if (numWinners == 1) {
+//            gui.showMessage(playerList[winner].getName()+langStrings.getLine(3));
+//        } else {
+//            for (int i = 0; i < playerList.length; i++) {
+//                totalValue[i] = playerList[i].getBalance();
+//                for (int j = 0; j < numberOfTiles; j++) {
+//                    if (board.getTiles()[j].getOwner() == playerList[i]) {
+//                        totalValue[i] += board.getTiles()[i].getPrice();
+//                    }
+//                }
+//            }
+//            highestBalance = 0;
+//            for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,totalValue[j]); }
+//            for (int j = 0; j < playerList.length; j++) {
+//                if (totalValue[j] == highestBalance){
+//                    gui.showMessage(langStrings.getLine(6));
+//                    gui.showMessage(playerList[j].getName()+langStrings.getLine(3));
+//                    break;
+//                }
+//            }
+//        }
     }
 
     private void addPlayers(int a) {
