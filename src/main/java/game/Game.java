@@ -125,11 +125,11 @@ public class Game {
             for (int i = 0; i < playerList.length; i++) {   //A full round
                 Player player = playerList[i];
                 while (player.getBankrupt()) { // Skip bankrupt players
+                    tileHandler.removeOneCar(this,player);
                     i++;
                     if (i == playerList.length) {i = 0;}
                     player = playerList[i];
                 }
-
                 if (player.getPrison()){
                     player.startFromPrison(this);
                 }
