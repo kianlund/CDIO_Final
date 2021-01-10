@@ -124,8 +124,7 @@ public class Game {
         {
             for (int i = 0; i < playerList.length; i++) {   //A full round
                 Player player = playerList[i];
-                playerList[0].withdrawFromBalance(20000);
-                while (player.getBankrupt()) {
+                while (player.getBankrupt()) { // Skip bankrupt players
                     i++;
                     if (i == playerList.length) {i = 0;}
                     player = playerList[i];
