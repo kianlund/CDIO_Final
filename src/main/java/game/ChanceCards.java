@@ -36,7 +36,7 @@ public class ChanceCards {
                 giveMoney(player,500);
                 break;
             case(3):
-                giveMoney(player,1000);
+                withdrawMoney(player,1000);
                 break;
             case(4):
                 getOutOfJailFree(player);
