@@ -70,20 +70,6 @@ public class GameBoard {
         return tiles;
     }
 
-    public int[] getColorArray(Color c) { //Returns 1-dimensional array with the color appropriate tiles
-        int[] tempArr = new int[arraySize];
-        tempArr[0] = 0; //default
-        tempArr[1] = 0; //default
-        for (int i = 0; i < colorArray.length; i++) {
-            if (c == colorArray[i]) {
-                for (int j = 0; j < arraySize; j++) {
-                    tempArr[j] = colorArr[i][j];
-                }
-            }
-        }
-        return tempArr;
-    }
-
     public Tile[] getTilesByColor(Color c) {
         int counter = 0;
         Tile[] coloredTiles = new Tile[3];
@@ -104,24 +90,6 @@ public class GameBoard {
     }
 
     public Color[] getTileColor() {return colorArray;}
-
-    public int getRent(Tile tile){
-        if(tile.getOwner() != null){
-            Player owner = tile.getOwner();
-            int[] checklist = getColorArray(tile.getTileColor());
-            for (int i = 0; i < checklist.length; i++){
-                Tile otherTile;
-                if(checklist[i] != tile.getNumber()){
-                    otherTile = tiles[checklist[i]];
-                    if(tile.getOwner() == otherTile.getOwner()){
-                        return tile.getRent()*2;
-                    }
-                }
-            }
-        }
-        return tile.getRent();
-    }
-
 
 }
 
