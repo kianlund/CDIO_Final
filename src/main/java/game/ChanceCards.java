@@ -23,20 +23,20 @@ public class ChanceCards {
 
     public void DrawCard(Player player){
 
-        int a = rand.nextInt(1);
+        int a = rand.nextInt(7);
 //        int a = 8;
         switch (a){
             case(0):
                 moveToStart(player);
                 break;
             case(1):
-                move5Tiles(player);
+                movePlayer(player,3);
                 break;
             case(2):
-                tooMuchCandy(player);
+                giveMoney(player,500);
                 break;
             case(3):
-                homeworkDone(player);
+                giveMoney(player,1000);
                 break;
             case(4):
                 getOutOfJailFree(player);
@@ -45,17 +45,24 @@ public class ChanceCards {
                 birthday(player);
                 break;
             case(6):
-                getFreeTileOneColor(player);
-                break;
-            case(7):
                 moveToLastTile(player);
-                break;
-            case(8):
-                getFreeTileTwoColors(player);
                 break;
         }
 
 
+    }
+
+    private void giveMoney(Player player, int amountGiven){
+        player.addToBalance(amountGiven);
+    }
+
+    private void withdrawMoney(Player player, int amountTaken){
+        if (!player.withdrawFromBalance(amountTaken)){
+        }
+    }
+
+    private void movePlayer(Player player, int steps){
+        player.moveLocation(steps, game);
     }
 
     private void moveToStart(Player player){
@@ -67,23 +74,11 @@ public class ChanceCards {
 
     }
 
-    private void move5Tiles(Player player){
-        String message = chanceCardsStrings.getLine(2);
-        displayChanceCard(message);
-        player.moveLocation(5, game);
-    }
-
     private void tooMuchCandy(Player player){
         String message = chanceCardsStrings.getLine(3);
         displayChanceCard(message);
         if (!player.withdrawFromBalance(2)){
         }
-    }
-
-    private void homeworkDone(Player player){
-        String message = chanceCardsStrings.getLine(4);
-        displayChanceCard(message);
-        player.addToBalance(2);
     }
 
     private void birthday(Player player){
@@ -104,45 +99,6 @@ public class ChanceCards {
         System.out.println(player.getGetOutOfJailCards());
     }
 
-    private void getFreeTileOneColor(Player player){
-        GameBoard board = game.getBoard();
-        Color[] colors = board.getTileColor();
-
-        int colNum = rand.nextInt(colors.length);
-        int[] tilenums = board.getColorArray(colors[colNum]);
-        Tile tile = board.getTile(tilenums[0]);
-        String message = chanceCardsStrings.getLine(7);
-        message = message.replace("[Color]", colorStrings[colNum]);
-        displayChanceCard(message);
-        boolean noOwner = false;
-        if(tile.getOwner()!= null){
-            for (int i: tilenums){
-                if(board.getTile(i).getOwner() == null){
-                    tile = board.getTile(i);
-                    noOwner = true;
-                }
-            }
-        }
-        else{
-            noOwner = true;
-        }
-        if(noOwner){
-            String msg = player.getName() + chanceCardsStrings.getLine(10)+ " " + tile.getGui_field().getTitle() + chanceCardsStrings.getLine(11);
-            displayChanceCard(message, msg);
-            tile.setOwner(player);
-        }
-        int from = player.getLocation();
-        int to = tile.getNumber();
-        if (from < to){
-            player.moveLocation(to-from, game);
-        }
-        else{
-            int moveNum = (game.getNumberOfTiles() - from) + to;
-            player.moveLocation(moveNum,game);
-        }
-
-    }
-
 
 
     private void moveToLastTile(Player player){
@@ -153,58 +109,6 @@ public class ChanceCards {
         displayChanceCard(message);
         player.moveLocation(moveNum, game);
 
-    }
-
-    private void getFreeTileTwoColors(Player player){
-        GameBoard board = game.getBoard();
-        Color[] colors = board.getTileColor();
-
-        String message = chanceCardsStrings.getLine(9);
-
-        int colNum1 = rand.nextInt(colors.length);
-        int colNum2 = rand.nextInt(colors.length);
-//        int colNum1 = 0;
-//        int colNum2= 7;
-        while (colNum1 == colNum2){
-            colNum2 = rand.nextInt(colors.length);
-        }
-        int[] arr1 = board.getColorArray(colors[colNum1]);
-        int[] arr2 = board.getColorArray(colors[colNum2]);
-
-
-        int[] tilenums = new int[arr1.length + arr2.length];
-        System.arraycopy(arr1, 0, tilenums, 0, arr1.length);
-        System.arraycopy(arr2, 0, tilenums, arr1.length, arr2.length);
-        Tile tile = board.getTile(tilenums[0]);
-        message = message.replace("[Color1]", colorStrings[colNum1]);
-        message = message.replace("[Color2]", colorStrings[colNum2]);
-        displayChanceCard(message);
-        boolean noOwner = false;
-        if(tile.getOwner()!= null){
-            for (int i: tilenums){
-                if((board.getTile(i).getOwner() == null)&&!(tile.getOwner() == null)){
-                    tile = board.getTile(i);
-                    noOwner = true;
-                }
-            }
-        }
-        else{
-            noOwner = true;
-        }
-        if(noOwner){
-            String msg = player.getName() + chanceCardsStrings.getLine(10)+ " " + tile.getGui_field().getTitle() + chanceCardsStrings.getLine(11);
-            displayChanceCard(message, msg);
-            tile.setOwner(player);
-        }
-        int from = player.getLocation();
-        int to = tile.getNumber();
-        if (from < to){
-            player.moveLocation(to-from, game);
-        }
-        else{
-            int moveNum = (game.getNumberOfTiles() - from) + to;
-            player.moveLocation(moveNum,game);
-        }
     }
 
     private void displayChanceCard(String message){
