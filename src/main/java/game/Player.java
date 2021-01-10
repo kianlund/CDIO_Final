@@ -38,7 +38,7 @@ public class Player extends GUI_Player {
         int newBalance = getBalance() - payment;
         if (newBalance < 0){
             bankrupt = true;
-
+            setBalance(0);
             return false;
         }
         else{
@@ -67,8 +67,8 @@ public class Player extends GUI_Player {
         while (location >= 40) {
             location -= 40;
             game.getGui().showMessage(game.getTextStrings().passedStart
-                    + game.getTextStrings().moneyMessage(2));
-            addToBalance(2);
+                    + game.getTextStrings().moneyMessage(4000));
+            addToBalance(4000);
         }
         tilehandler.landOnField(
                 game.getBoard().getTiles()[location], game,this);
