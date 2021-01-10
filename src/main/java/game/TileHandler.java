@@ -47,18 +47,21 @@ public class TileHandler{
 
         if(tile.getGui_field() instanceof GUI_Street) {
 
-            textStrings.TileMessage(player);
             if (tile.getOwner() == null) {
+                boolean buyOrNot = game.getGui().getUserLeftButtonPressed("Køb stedet?", "Ja", "Nej");
+                if (buyOrNot == true) {
+                    textStrings.TileMessage(player);
                     player.buyTile(player, tile, false);
                 }
-            else if (tile.getOwner() != player && tile.getOwner() != null) {
+            } else if (tile.getOwner() != player && tile.getOwner() != null) {
+                textStrings.TileMessage(player);
                 GameBoard b = game.getBoard();
                 tempTileNumber = b.getColorArray(tile.getTileColor())[0];
                 if (b.getTiles()[tempTileNumber].getOwner() ==
                         b.getTiles()[(tempTileNumber+1)].getOwner()) {
-                    tileRent = tile.getRent() * 2;
+                    tileRent = tile.getPrice() * 2;
                 } else {
-                    tileRent = tile.getRent();
+                    tileRent = tile.getPrice();
                 }
                 player.payRent(player, tile.getOwner(), tileRent);
             }

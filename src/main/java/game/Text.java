@@ -66,8 +66,8 @@ public class Text {
             finalmsg += ownedOtherStringFirst + " " + tile.getOwner().getName() + ownedOtherStringLast;
         }
         //finalmsg += " " + Integer.toString(game.getBoard().getRent(tile));
-        finalmsg += " " + game.getBoard().getTiles()[player.getLocation()].getRent();
-        if(tile.getRent() > 1){
+        finalmsg += " " + game.getBoard().getTiles()[player.getLocation()].getPrice();
+        if(tile.getPrice() > 1){
             finalmsg += currencyPlural;
         }
         else{

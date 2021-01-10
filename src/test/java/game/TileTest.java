@@ -39,14 +39,14 @@ class TileTest {
 
         assertEquals(testTile.getDescription(), testName);
         assertEquals(testTile.getNumber(), number);
-        assertEquals(testTile.getRent(), rent);
+        assertEquals(testTile.getPrice(), rent);
         assertEquals(testTile.getGui_field().getTitle(), testName);
         assertEquals(testTile.getGui_field().getSubText(), Integer.toString(number));
         assertNull(testTile.getOwner());
     }
     @Test
     void getRent() {
-        assertEquals(rent, testTile.getRent());
+        assertEquals(rent, testTile.getPrice());
     }
 
     @Test

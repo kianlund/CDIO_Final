@@ -77,7 +77,7 @@ public class Player extends GUI_Player {
 
     public void buyTile(Player player, Tile tile, boolean getFree){
         if(!getFree){
-            if(withdrawFromBalance(tile.getRent())){
+            if(withdrawFromBalance(tile.getPrice())){
                 tile.setOwner(this);
             }
             else{

@@ -1,6 +1,5 @@
 package game;
 
-import com.company.Main;
 import gui_fields.*;
 import gui_main.GUI;
 
@@ -164,7 +163,7 @@ public class Game {
                 totalValue[i] = playerList[i].getBalance();
                 for (int j = 0; j < numberOfTiles; j++) {
                     if (board.getTiles()[j].getOwner() == playerList[i]) {
-                        totalValue[i] += board.getTiles()[i].getRent();
+                        totalValue[i] += board.getTiles()[i].getPrice();
                     }
                 }
             }

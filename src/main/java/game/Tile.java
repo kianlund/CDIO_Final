@@ -33,7 +33,7 @@ public class Tile {
         owner = null;
     }
 
-    public int getRent() {
+    public int getPrice() {
 
         return rent;
     }
