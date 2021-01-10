@@ -12,10 +12,11 @@ public class Game {
     private DiceCup cup;
     private GameBoard board;
     private GUI gui;
-    private int startBalance = 30000;
+    private final int startBalance = 30000;
     private final int startLocation = 0;
     private final int numberOfTiles = 40;
-    private final int prisonLocation = 6;
+    private final int prisonLocation = 10;
+    private final int minNumberOfPlayers = 3;
     private final int maxNumberOfPlayers = 6;
     private final Color[] colors= {Color.RED, Color.BLUE, Color.GREEN,
                             Color.YELLOW, Color.CYAN, Color.PINK};
@@ -54,18 +55,16 @@ public class Game {
         chanceCards = new ChanceCards(this);
         textStrings = new Text(this);
         tileHandler = new TileHandler(prisonLocation);
-        totalNumPlayers = gui.getUserInteger(langStrings.getLine(0)+". 3-"+maxNumberOfPlayers,1,maxNumberOfPlayers);
+        totalNumPlayers = gui.getUserInteger(langStrings.getLine(0)+". "+minNumberOfPlayers+"-"+maxNumberOfPlayers,minNumberOfPlayers,maxNumberOfPlayers);
 
         if (totalNumPlayers>maxNumberOfPlayers){
             addPlayers(maxNumberOfPlayers);
         }
-        else if(totalNumPlayers<1){
-            addPlayers(1);
+        else if(totalNumPlayers<minNumberOfPlayers){
+            addPlayers(minNumberOfPlayers);
         }else {
                 addPlayers(totalNumPlayers);
         }
-
-
 
         cup = new DiceCup(2);
         playGame();
