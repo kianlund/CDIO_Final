@@ -1,8 +1,7 @@
 package game;
 
 import com.company.Main;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Street;
+import gui_fields.*;
 
 import java.awt.*;
 
@@ -44,9 +43,10 @@ public class Tile {
 
     public void setOwner(Player owner) {
         this.owner = owner;
-        ((GUI_Street) gui_field).setHouses(1);
-        ((GUI_Street) gui_field).setOwnerName(owner.getName());
-        ((GUI_Street) gui_field).setRent(Integer.toString(rent));
+        if (gui_field instanceof GUI_Ownable) {
+            ((GUI_Ownable) gui_field).setOwnerName(owner.getName());
+            ((GUI_Ownable) gui_field).setRent(Integer.toString(rent));
+        }
 
     }
 

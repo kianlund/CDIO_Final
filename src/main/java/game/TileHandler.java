@@ -42,17 +42,10 @@ public class TileHandler{
 
         Text textStrings = game.getTextStrings();
         tile.getGui_field().setCar(player, true);
-        int tileRent;
-        int tempTileNumber;
 
-        if(tile.getGui_field() instanceof GUI_Street) {
-
+        if(tile.getGui_field() instanceof GUI_Street || tile.getGui_field() instanceof GUI_Brewery || tile.getGui_field() instanceof GUI_Shipping) {
             if (tile.getOwner() == null) {
-                boolean buyOrNot = game.getGui().getUserLeftButtonPressed("Køb stedet?", "Ja", "Nej");
-                if (buyOrNot) {
-                    textStrings.TileMessage(player);
-                    player.buyTile(player, tile, false);
-                }
+                askBuyTile(tile,game,player);
             } else if (tile.getOwner() != player) {
                 textStrings.TileMessage(player);
                 player.payRent(player, tile.getOwner(), tile.getPrice());
@@ -66,7 +59,16 @@ public class TileHandler{
         }
         else if(tile.getGui_field() instanceof GUI_Refuge) {
             game.getGui().showMessage(game.getTextStrings().freeParking);
+        }
+    }
 
+    private void askBuyTile(Tile tile, Game game, Player player) {
+        Text textStrings = game.getTextStrings();
+        String tileName = tile.getGui_field().getTitle();
+        boolean buyOrNot = game.getGui().getUserLeftButtonPressed("Køb "+tileName+"?", "Ja", "Nej"); //skal bruge dkEngStringssomething !!
+        if (buyOrNot) {
+            textStrings.TileMessage(player);
+            player.buyTile(player, tile, false);
         }
     }
 
