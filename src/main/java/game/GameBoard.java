@@ -33,7 +33,6 @@ public class GameBoard {
             {550,2600,7800,18000,220000,25000,600,3000,9000,20000,24000,28000},
             {700,3500,10000,22000,26000,30000,1000,4000,12000,28000,34000,40000},
             {500,1000,2000,4000},
-            {(cup.getDiceinCup()[0].getValue()+cup.getDiceinCup()[1].getValue())*100, (cup.getDiceinCup()[0].getValue()+cup.getDiceinCup()[1].getValue())*200},
     };
     private final Color[] colorArray = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.RED, Color.WHITE, Color.PINK, Color.CYAN};
     private int[][] colorArr;
