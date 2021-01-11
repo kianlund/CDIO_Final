@@ -72,7 +72,23 @@ public class TileHandler{
         }
     }
 
-    public void prisonHandler(Tile tile, Player player, Game game){
+//    public void buyHouse(Tile tile, Player player, Game game) {
+//        GameBoard b = game.getBoard();
+//            if (b.getTiles()[6].getOwner() == player && b.getTiles()[8].getOwner() == player && b.getTiles()[9].getOwner() == player ){
+//                if(gui.getUserLeftButtonPressed("Har du lyst til at købe et gult hus?", "Ja", "Nej")){
+//                    String Selection = gui.getUserButtonPressed("Hvor skal huset være?", b.getTiles()[6].getGui_field().getTitle(),b.getTiles()[8].getGui_field().getTitle(), b.getTiles()[9].getGui_field().getTitle());
+//                          if (Selection == b.getTiles()[6].getGui_field().getTitle()){
+//
+//                          }
+//                }
+//
+//                else{}
+//
+//            }
+//
+//    }
+
+        public void prisonHandler(Tile tile, Player player, Game game){
         if(tile.getNumber() != prisonNumber) {
             player.setInPrison(true);
             game.getGui().showMessage(game.getTextStrings().goToJail);
