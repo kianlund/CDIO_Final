@@ -52,10 +52,10 @@ public class TileHandler{
             } else if (tile.getOwner() != player) {
                 if (tile.getGui_field() instanceof GUI_Street) {
                     if (b.getTilesByColor(tile.getTileColor())[0].getOwner() ==
-                            b.getTilesByColor(tile.getTileColor())[1].getOwner() &&
-                            b.getTilesByColor(tile.getTileColor())[1].getOwner() ==
-                            b.getTilesByColor(tile.getTileColor())[2].getOwner() &&
-                            tile.getProperty() == 0)
+                        b.getTilesByColor(tile.getTileColor())[1].getOwner() &&
+                        b.getTilesByColor(tile.getTileColor())[1].getOwner() ==
+                        b.getTilesByColor(tile.getTileColor())[2].getOwner() &&
+                        tile.getProperty() == 0)
                     {
                         game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + tile.getRent()[0] * 2);
                         player.payRent(player, tile.getOwner(), tile.getRent()[0] * 2);
@@ -90,6 +90,12 @@ public class TileHandler{
         if (buyOrNot) {
             textStrings.TileMessage(player);
             player.buyTile(player, tile, false);
+        }
+    }
+
+    private void askBuyHousing(Tile tile, Game game, Player player) {
+        String buyHousing = gui.getUserSelection("Vil du købe husering på en af dine felter?","Nej, slut tur","test");
+        if (buyHousing == "Nej, slut tur") {
         }
     }
 
