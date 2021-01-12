@@ -105,12 +105,12 @@ public class GameBoard {
             if (tiles[i].getTileColor() == c) {
                 coloredTiles[counter] = tiles[i];
                 counter++;
-//                if (c == Color.BLUE || c == Color.CYAN) {
-//                    if (counter == 2) {
-//                        coloredTiles[2] = coloredTiles[1];
-//                        break;
-//                    }
-//                }
+                if (c == Color.BLUE || c == Color.CYAN) {
+                    if (counter == 2) {
+                        coloredTiles[2] = coloredTiles[1];
+                        break;
+                    }
+                }
             }
         }
         return coloredTiles;
