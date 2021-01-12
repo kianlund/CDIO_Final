@@ -65,10 +65,23 @@ public class TileHandler{
                     }
                 }
                 if (tile.getGui_field() instanceof GUI_Shipping) {
-                    askBuyTile(tile,game,player);
+        int counter = -1;
+        if (tile.getOwner()==game.getBoard().getTiles()[5].getOwner()){counter++;}
+        if (tile.getOwner()==game.getBoard().getTiles()[15].getOwner()){counter++;}
+        if (tile.getOwner()==game.getBoard().getTiles()[20].getOwner()){counter++;}
+        if (tile.getOwner()==game.getBoard().getTiles()[25].getOwner()){counter++;}
+        int[] shippingRent = {500, 1000, 2000, 4000};
+                    game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + shippingRent[counter]);
+                    player.payRent(player, tile.getOwner(), shippingRent[counter]);
                 }
                 if (tile.getGui_field() instanceof GUI_Brewery) {
-                    askBuyTile(tile,game,player);
+                    if (game.getBoard().getTiles()[12].getOwner()==game.getBoard().getTiles()[28].getOwner()){
+                        game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + (game.getCup().getSum()*200));
+                        player.payRent(player, tile.getOwner(), (game.getCup().getSum()*200));
+                    } else {
+                        game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + (game.getCup().getSum()*100));
+                        player.payRent(player, tile.getOwner(), (game.getCup().getSum()*100));
+                    }
                 }
             }
         }

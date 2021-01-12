@@ -147,7 +147,7 @@ public class Player extends GUI_Player {
             prison = false;
         }
         else{
-            if (withdrawFromBalance(2)){
+            if (withdrawFromBalance(1000)){
                 try {
                     game.getGui().showMessage(game.getTextStrings().payBail);
                 }
