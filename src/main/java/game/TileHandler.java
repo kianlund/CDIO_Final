@@ -53,10 +53,11 @@ public class TileHandler{
                 if (b.getTilesByColor(tile.getTileColor())[0].getOwner() ==
                     b.getTilesByColor(tile.getTileColor())[1].getOwner() &&
                     b.getTilesByColor(tile.getTileColor())[1].getOwner() ==
-                    b.getTilesByColor(tile.getTileColor())[2].getOwner())
+                    b.getTilesByColor(tile.getTileColor())[2].getOwner()) &&
+                    tile.getProperty() == 0
                 {
-                    game.getGui().showMessage(tileHandlerText.getLine(0)+" "+tile.getGui_field().getTitle()+", "+tileHandlerText.getLine(3)+" "+tile.getOwner().getName()+tileHandlerText.getLine(4)+" "+tile.getRent()[tile.getProperty()*2]);
-                    player.payRent(player, tile.getOwner(), tile.getRent()[tile.getProperty()]*2);
+                    game.getGui().showMessage(tileHandlerText.getLine(0)+" "+tile.getGui_field().getTitle()+", "+tileHandlerText.getLine(3)+" "+tile.getOwner().getName()+tileHandlerText.getLine(4)+" "+tile.getRent()[0]*2);
+                    player.payRent(player, tile.getOwner(), tile.getRent()[0]*2);
                 } else {
                     game.getGui().showMessage(tileHandlerText.getLine(0)+" "+tile.getGui_field().getTitle()+", "+tileHandlerText.getLine(3)+" "+tile.getOwner().getName()+tileHandlerText.getLine(4)+" "+tile.getRent()[tile.getProperty()]);
                     player.payRent(player, tile.getOwner(), tile.getRent()[tile.getProperty()]);
