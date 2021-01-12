@@ -48,7 +48,6 @@ public class GameBoard {
             {1000,4000,12000,28000,34000,40000}
     };
     private final Color[] colorArray = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.RED, Color.WHITE, Color.PINK, Color.CYAN};
-    private int[][] colorArr;
     private int colorCounter;
     private int tileCounter;
     private int rentCounter;
@@ -60,7 +59,6 @@ public class GameBoard {
         colorCounter = 0;
         rentCounter = 0;
         tileCounter = 1;
-        //tiles[0] = new Tile();
         for (int i = 0; i < numOfTiles; i++) {
             tiles[i] = new Tile(tilePrice[i],gui_fields[i], i);
             if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Brewery || gui_fields[i] instanceof GUI_Shipping) {
