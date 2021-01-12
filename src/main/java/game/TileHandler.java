@@ -64,8 +64,12 @@ public class TileHandler{
                         player.payRent(player, tile.getOwner(), tile.getRent()[tile.getProperty()]);
                     }
                 }
-                if (tile.getGui_field() instanceof GUI_Shipping) {}
-                if (tile.getGui_field() instanceof GUI_Brewery) {}
+                if (tile.getGui_field() instanceof GUI_Shipping) {
+                    askBuyTile(tile,game,player);
+                }
+                if (tile.getGui_field() instanceof GUI_Brewery) {
+                    askBuyTile(tile,game,player);
+                }
             }
         }
         else if(tile.getGui_field() instanceof GUI_Chance){
