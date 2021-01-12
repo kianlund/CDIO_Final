@@ -9,6 +9,9 @@ public class TileHandler{
         prisonNumber = prisonAt;
     }
     private GUI gui;
+
+    Language tileHandlerText = new Language("dkFieldText2.txt");
+
     /**
      * removes the players car from the field and redraws the others
      * @param game the game
@@ -40,15 +43,24 @@ public class TileHandler{
      */
     public void landOnField(Tile tile, Game game, Player player) {
 
-        Text textStrings = game.getTextStrings();
         tile.getGui_field().setCar(player, true);
+        GameBoard b = game.getBoard();
 
         if(tile.getGui_field() instanceof GUI_Street || tile.getGui_field() instanceof GUI_Brewery || tile.getGui_field() instanceof GUI_Shipping) {
             if (tile.getOwner() == null) {
                 askBuyTile(tile,game,player);
             } else if (tile.getOwner() != player) {
-                textStrings.TileMessage(player);
-                player.payRent(player, tile.getOwner(), tile.getPrice());
+                if (b.getTilesByColor(tile.getTileColor())[0].getOwner() ==
+                    b.getTilesByColor(tile.getTileColor())[1].getOwner() &&
+                    b.getTilesByColor(tile.getTileColor())[1].getOwner() ==
+                    b.getTilesByColor(tile.getTileColor())[2].getOwner())
+                {
+                    game.getGui().showMessage(tileHandlerText.getLine(0)+" "+tile.getGui_field().getTitle()+", "+tileHandlerText.getLine(3)+" "+tile.getOwner().getName()+tileHandlerText.getLine(4)+" "+tile.getRent()[tile.getProperty()*2]);
+                    player.payRent(player, tile.getOwner(), tile.getRent()[tile.getProperty()]*2);
+                } else {
+                    game.getGui().showMessage(tileHandlerText.getLine(0)+" "+tile.getGui_field().getTitle()+", "+tileHandlerText.getLine(3)+" "+tile.getOwner().getName()+tileHandlerText.getLine(4)+" "+tile.getRent()[tile.getProperty()]);
+                    player.payRent(player, tile.getOwner(), tile.getRent()[tile.getProperty()]);
+                }
             }
         }
         else if(tile.getGui_field() instanceof GUI_Chance){
