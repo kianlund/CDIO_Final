@@ -10,9 +10,9 @@ import java.awt.*;
  * Tiles are the individual fields
  */
 public class GameBoard {
-    private DiceCup cup;
     private Tile[] tiles;
-    private final int[] tilePrice ={4000,1200,0,1200,
+    private final int[] tilePrice ={
+            4000,1200,0,1200,
             0,4000,2000,0,
             2000,2400,0,2800,
             3000,2800,3200,4000,
