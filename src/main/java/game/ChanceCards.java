@@ -18,7 +18,6 @@ public class ChanceCards {
         for (int i = 0; i < colorStrings.length; i++){
             colorStrings[i]=chanceCardsStrings.getLine(12+i);
         }
-
     }
 
     public void DrawCard(Player player){
@@ -48,8 +47,6 @@ public class ChanceCards {
                 moveToLastTile(player);
                 break;
         }
-
-
     }
 
     private void giveMoney(Player player, int amountGiven){
@@ -89,7 +86,6 @@ public class ChanceCards {
                 p.payRent(p, player, 1);
             }
         }
-
     }
 
     private void getOutOfJailFree(Player player){
@@ -108,7 +104,6 @@ public class ChanceCards {
         int moveNum = maxNum- player.getLocation() -1;
         displayChanceCard(message);
         player.moveLocation(moveNum, game);
-
     }
 
     private void displayChanceCard(String message){
