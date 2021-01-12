@@ -11,6 +11,7 @@ public class Tile {
     private String description;
     private int price;
     private int[] rent;
+    private int property;
     private GUI_Field gui_field;
     private Color tileColor;
 
@@ -27,6 +28,7 @@ public class Tile {
     public Tile (int priceInput, GUI_Field gui_field1, int num){
         price = priceInput;
         rent = null;
+        property = 0;
         gui_field = gui_field1;
         tileColor = null;
         this.number = num;
@@ -43,6 +45,14 @@ public class Tile {
 
     public void setRent(int[] input) {
         rent = input;
+    }
+
+    public int getProperty() {
+        return property;
+    }
+
+    public void setProperty(int input) {
+        property = input;
     }
 
     public Player getOwner() {
