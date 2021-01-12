@@ -10,7 +10,7 @@ public class ChanceCards {
     private Random rand;
     private final String[] colorStrings;
     public ChanceCards(Game game){
-        chanceCardsStrings = new Language("engChancecard.txt");
+        chanceCardsStrings = new Language("dkChancecard.txt");
         defString = chanceCardsStrings.getLine(0);
         this.game = game;
         rand = new Random();

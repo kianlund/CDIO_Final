@@ -24,7 +24,7 @@ public class Game {
     private Text textStrings;
     private static TileHandler tileHandler;
 
-    private Language langStrings = new Language("engGameStrings.txt");
+    private Language langStrings = new Language("dkGameString.txt");
 
     public Game(Boolean test){
         initGUIFields();
