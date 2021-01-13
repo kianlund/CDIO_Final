@@ -79,9 +79,6 @@ public class Player extends GUI_Player {
         if(!getFree){
             if(withdrawFromBalance(tile.getPrice())){
                 tile.setOwner(this);
-                if (tile.getGui_field() instanceof GUI_Ownable){
-                    ((GUI_Ownable) tile.getGui_field()).setBorder(player.getPrimaryColor());
-                }
             }
             else{
                 withdrawFromBalance(getBalance());
