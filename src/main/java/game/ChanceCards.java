@@ -6,63 +6,195 @@ import java.util.Random;
 public class ChanceCards {
     public final Language chanceCardsStrings;
     private Game game;
-    private String defString ;
+    private String defString;
     private Random rand;
     private final String[] colorStrings;
-    public ChanceCards(Game game){
+
+    public ChanceCards(Game game) {
         chanceCardsStrings = new Language("dkChancecard.txt");
         defString = chanceCardsStrings.getLine(0);
         this.game = game;
-        rand = new Random();
+        rand=new Random();
         colorStrings = new String[game.getBoard().getTileColor().length];
-        for (int i = 0; i < colorStrings.length; i++){
-            colorStrings[i]=chanceCardsStrings.getLine(12+i);
+        for (int i = 0; i < colorStrings.length; i++) {
+            colorStrings[i] = chanceCardsStrings.getLine(12 + i);
         }
     }
 
-    public void DrawCard(Player player){
+    public void DrawCard(Player player) {
 
-        int a = rand.nextInt(7);
-//        int a = 8;
-        switch (a){
-            case(0):
+        int a = rand.nextInt(20);
+      // int a = 9;
+        switch (a) {
+            case (0):
                 moveToStart(player);
+
                 break;
-            case(1):
-                movePlayer(player,3);
+            case (1):
+                movePlayer(player, 3);
                 break;
-            case(2):
-                giveMoney(player,500);
+            case (2):
+                giveMoney(player, 500);
                 break;
-            case(3):
-                withdrawMoney(player,1000);
+            case (3):
+                withdrawMoney(player, 1000);
                 break;
-            case(4):
+            case (4):
                 getOutOfJailFree(player);
                 break;
-            case(5):
+            case (5):
                 birthday(player);
                 break;
-            case(6):
+            case (6):
                 moveToLastTile(player);
+                break;
+            case (7):
+                giveTax(player, 3000);
+                break;
+            case (8):
+                giveMoney2(player, 1000);
+             break;
+            case (9):
+                withdraw(player, 200);
+                break;
+            case (10):
+                movePlayerForward(player,5);
+                break;
+            case (11):
+                giveExtraHusHotel(player, 3100);
+                break;
+            case (12):
+                movePlayerBack(player,37);
+                break;
+            case (13):
+                movePlayerFreAlle(player,11,4000);
+                break;
+            case (14):
+                giveMoneyVogn(player, 3000);
+                break;
+            case (15):
+                giveMoneyTooth(player, 2000);
+                break;
+            case (16):
+                withdrawFurniture(player, 1000);
+                break;
+            case (17):
+                Party(player);
+                break;
+            case (18):
+                OwnBreeding(player,200);
+                break;
+            case (19):
+                SetIPrison(player,10);
                 break;
         }
     }
 
-    private void giveMoney(Player player, int amountGiven){
+    private void SetIPrison(Player player, int num) {
+        String message = chanceCardsStrings.getLine(43);
+        displayChanceCard(message);
+        message = message.replace("Fængsel", game.getBoard().getTile(num).getGui_field().getDescription());
+        int moveNum = num - player.getLocation();
+        player.moveLocation(moveNum, game);
+
+    }
+
+    private void OwnBreeding(Player player, int amountGiven) {
+        String message = chanceCardsStrings.getLine(30);
+        displayChanceCard(message);
         player.addToBalance(amountGiven);
     }
 
-    private void withdrawMoney(Player player, int amountTaken){
-        if (!player.withdrawFromBalance(amountTaken)){
+    private void Party(Player player) {
+        String message = chanceCardsStrings.getLine(47);
+        displayChanceCard(message);
+        for (Player p : game.getPlayerList()) {
+            if (p != player) {
+                p.payRent(p, player, 500);
+            }
+        }
+
+    }
+
+    private void withdrawFurniture(Player player, int amountGiven) {
+        String message = chanceCardsStrings.getLine(42);
+        displayChanceCard(message);
+        player.addToBalance(amountGiven);
+    }
+
+    private void giveMoneyTooth(Player player, int amountTaken) {
+        String message = chanceCardsStrings.getLine(41);
+        displayChanceCard(message);
+        if (!player.withdrawFromBalance(amountTaken)) {
         }
     }
 
-    private void movePlayer(Player player, int steps){
+    private void giveMoneyVogn(Player player, int amountTaken) {
+        String message = chanceCardsStrings.getLine(29);
+        displayChanceCard(message);
+        if (!player.withdrawFromBalance(amountTaken)) {
+        }
+    }
+
+    private void movePlayerFreAlle(Player player,int num,int amountGiven) {
+        String message = chanceCardsStrings.getLine(46);
+        displayChanceCard(message);
+        message = message.replace("F.Alle", game.getBoard().getTile(num).getGui_field().getDescription());
+        int moveNum = num - player.getLocation();
+        player.moveLocation(moveNum, game);
+        if(moveNum>0)
+            player.addToBalance(amountGiven);
+
+    }
+
+    private void movePlayerBack(Player player, int steps) {
+        String message = chanceCardsStrings.getLine(40);
+        displayChanceCard(message);
         player.moveLocation(steps, game);
     }
 
-    private void moveToStart(Player player){
+    private void giveExtraHusHotel(Player player, int amountTaken) {
+        String message = chanceCardsStrings.getLine(37);
+        displayChanceCard(message);
+        if (!player.withdrawFromBalance(amountTaken)) {
+        }
+
+    }
+
+    private void movePlayerForward(Player player,int steps) {
+        String message = chanceCardsStrings.getLine(2);
+        displayChanceCard(message);
+        player.moveLocation(steps, game);
+    }
+
+    private void giveMoney2(Player player, int amountGiven) {
+        String message = chanceCardsStrings.getLine(23);
+        displayChanceCard(message);
+        player.addToBalance(amountGiven);
+    }
+
+    private void giveTax(Player player, int amountGiven) {
+        String message = chanceCardsStrings.getLine(21);
+        displayChanceCard(message);
+        player.addToBalance(amountGiven);
+        {
+    }
+    }
+
+    private void giveMoney(Player player, int amountGiven) {
+        player.addToBalance(amountGiven);
+    }
+
+    private void withdrawMoney(Player player, int amountTaken) {
+        if (!player.withdrawFromBalance(amountTaken)) {
+        }
+    }
+
+    private void movePlayer(Player player, int steps) {
+        player.moveLocation(steps, game);
+    }
+
+    private void moveToStart(Player player) {
         String message = chanceCardsStrings.getLine(1);
         displayChanceCard(message);
         int location = player.getLocation();
@@ -71,50 +203,48 @@ public class ChanceCards {
 
     }
 
-    private void tooMuchCandy(Player player){
-        String message = chanceCardsStrings.getLine(3);
+    private void withdraw(Player player, int amountTaken) {
+        String message = chanceCardsStrings.getLine(27);
         displayChanceCard(message);
-        if (!player.withdrawFromBalance(2)){
+        if (!player.withdrawFromBalance(amountTaken)) {
         }
     }
 
-    private void birthday(Player player){
+    private void birthday(Player player) {
         String message = chanceCardsStrings.getLine(5);
         displayChanceCard(message);
-        for (Player p: game.getPlayerList()){
-            if(p != player){
-                p.payRent(p, player, 1);
+        for (Player p : game.getPlayerList()) {
+            if (p != player) {
+                p.payRent(p, player, 200);
             }
         }
     }
 
-    private void getOutOfJailFree(Player player){
-        String message = chanceCardsStrings.getLine(6);
+    private void getOutOfJailFree(Player player) {
+        String message = chanceCardsStrings.getLine(39);
         displayChanceCard(message);
-        player.setGetOutOfJailCards(player.getGetOutOfJailCards()+1);
+        player.setGetOutOfJailCards(player.getGetOutOfJailCards() + 1);
         System.out.println(player.getGetOutOfJailCards());
     }
 
 
-
-    private void moveToLastTile(Player player){
+    private void moveToLastTile(Player player) {
         int maxNum = game.getNumberOfTiles();
         String message = chanceCardsStrings.getLine(8);
-        message= message.replace("[Last Tile]", game.getBoard().getTile(maxNum-1).getGui_field().getDescription());
-        int moveNum = maxNum- player.getLocation() -1;
+        message = message.replace("[Last Tile]", game.getBoard().getTile(maxNum - 1).getGui_field().getDescription());
+        int moveNum = maxNum - player.getLocation() - 1;
         displayChanceCard(message);
         player.moveLocation(moveNum, game);
     }
 
-    private void displayChanceCard(String message){
+    private void displayChanceCard(String message) {
         game.getGui().displayChanceCard(message);
-        game.getGui().showMessage(defString );
+        game.getGui().showMessage(defString);
         game.getGui().displayChanceCard(" ");
     }
 
-    private void displayChanceCard(String message, String otherMsg){
-        game.getGui().displayChanceCard(message);
-        game.getGui().showMessage(defString + "\n" + otherMsg);
-        game.getGui().displayChanceCard(" ");
+
     }
-}
+
+
+
