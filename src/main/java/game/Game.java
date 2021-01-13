@@ -211,6 +211,8 @@ public class Game {
         return board;
     }
 
+    public DiceCup getCup() {return cup; }
+
     public void drawChance(Player player){
         chanceCards.DrawCard(player);
     }
