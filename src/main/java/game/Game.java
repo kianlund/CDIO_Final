@@ -103,7 +103,7 @@ public class Game {
                 while (player.getBankrupt()) { // Skip bankrupt players
                     tileHandler.removeOneCar(this,player);
                     i++;
-                    if (i == playerList.length) {i = 0;}
+                    if (i > playerList.length) {i = 0;}
                     player = playerList[i];
                 }
                 if (player.getPrison()){
