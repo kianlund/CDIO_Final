@@ -92,30 +92,6 @@ public class Game {
                 fields[i] = new GUI_Street();
             }
         }
-//            if(i%chanceFreq == 0){
-//                if(i%2 == 0 ){ //Only works with this size
-//                    switch (i){
-//                        case(0):
-//                            fields[i] =  new GUI_Start();
-//                            break;
-//                        case(prisonLocation):
-//                            fields[i] = new GUI_Jail();
-//                        break;
-//                        case(12):
-//                            fields[i] = new GUI_Refuge();
-//                        break;
-//                        case(goToJailLocation):
-//                            fields[i] = new GUI_Jail();
-//                        break;
-//                    }
-//                }
-//                else {
-//                    fields[i] = new GUI_Chance();
-//                }
-//            }
-//            else{
-//                fields[i]= new GUI_Street();
-//            }
     }
 
     public void playGame() {
@@ -151,37 +127,6 @@ public class Game {
     }
 
     private void resolveGame(Player p, int winner) {
-//        int highestBalance;
-//        int numWinners;
-//        int[] totalValue = new int[playerList.length];
-//
-//        highestBalance = 0;
-//        numWinners = 0;
-//        for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,playerList[j].getBalance()); }
-//        for (int j = 0; j < playerList.length; j++) {
-//            if (playerList[j].getBalance() == highestBalance){ numWinners++; winner = j; }
-//        }
-//        if (numWinners == 1) {
-//            gui.showMessage(playerList[winner].getName()+langStrings.getLine(3));
-//        } else {
-//            for (int i = 0; i < playerList.length; i++) {
-//                totalValue[i] = playerList[i].getBalance();
-//                for (int j = 0; j < numberOfTiles; j++) {
-//                    if (board.getTiles()[j].getOwner() == playerList[i]) {
-//                        totalValue[i] += board.getTiles()[i].getPrice();
-//                    }
-//                }
-//            }
-//            highestBalance = 0;
-//            for (int j = 0; j < playerList.length; j++) { highestBalance = Math.max(highestBalance,totalValue[j]); }
-//            for (int j = 0; j < playerList.length; j++) {
-//                if (totalValue[j] == highestBalance){
-//                    gui.showMessage(langStrings.getLine(6));
-//                    gui.showMessage(playerList[j].getName()+langStrings.getLine(3));
-//                    break;
-//                }
-//            }
-//        }
     }
 
     private void addPlayers(int a) {
