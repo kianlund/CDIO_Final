@@ -65,7 +65,8 @@ public class Tile {
             ((GUI_Ownable) gui_field).setOwnerName(owner.getName());
             ((GUI_Ownable) gui_field).setRent(Integer.toString(price));
             ((GUI_Ownable) gui_field).setBorder(owner.getPrimaryColor());
-        } else if (owner == null) {
+        }
+        if (gui_field instanceof GUI_Ownable && owner == null) {
             ((GUI_Ownable) gui_field).setOwnerName("");
             ((GUI_Ownable) gui_field).setBorder(null);
         }
