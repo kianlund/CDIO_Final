@@ -1,14 +1,12 @@
 package game;
 
 import gui_fields.*;
-import gui_main.GUI;
 
 public class TileHandler{
     private int prisonNumber;
     public TileHandler(int prisonAt){
         prisonNumber = prisonAt;
     }
-    private GUI gui;
 
     Language tileHandlerText = new Language("dkFieldText2.txt");
 
@@ -46,7 +44,7 @@ public class TileHandler{
         tile.getGui_field().setCar(player, true);
         GameBoard b = game.getBoard();
 
-        if(tile.getGui_field() instanceof GUI_Street || tile.getGui_field() instanceof GUI_Brewery || tile.getGui_field() instanceof GUI_Shipping) {
+        if(tile.getGui_field() instanceof GUI_Ownable) {
             if (tile.getOwner() == null) {
                 askBuyTile(tile,game,player);
             } else if (tile.getOwner() != player) {
@@ -81,6 +79,20 @@ public class TileHandler{
         else if(tile.getGui_field() instanceof GUI_Refuge) {
             game.getGui().showMessage(game.getTextStrings().freeParking);
         }
+        int colorsOwned = 0;
+        Boolean askToBuyHousing = false;
+        for (int i = 0; i < 8; i++) {
+            if (player == b.getTilesByColor(b.getTileColor()[i])[0].getOwner() &&
+                player == b.getTilesByColor(b.getTileColor()[i])[1].getOwner() &&
+                player == b.getTilesByColor(b.getTileColor()[i])[2].getOwner() )
+            {
+                colorsOwned++;
+                askToBuyHousing = false;
+            }
+        }
+        if (askToBuyHousing) {
+            askBuyHousing(tile,game,player);
+        }
     }
 
     private void askBuyTile(Tile tile, Game game, Player player) {
@@ -94,7 +106,7 @@ public class TileHandler{
     }
 
     private void askBuyHousing(Tile tile, Game game, Player player) {
-        String buyHousing = gui.getUserSelection("Vil du købe husering på en af dine felter?","Nej, slut tur","test");
+        String buyHousing = game.getGui().getUserSelection("Vil du købe husering på en af dine felter?","Nej, slut tur","test");
         if (buyHousing == "Nej, slut tur") {
         }
     }
