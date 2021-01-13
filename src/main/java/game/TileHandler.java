@@ -94,6 +94,29 @@ public class TileHandler{
         else if(tile.getGui_field() instanceof GUI_Refuge) {
             game.getGui().showMessage(game.getTextStrings().freeParking);
         }
+        else if(tile.getGui_field() instanceof GUI_Tax) {
+            if(tile.getNumber()==game.getBoard().getTiles()[4].getNumber()) {
+                if (game.getGui().getUserLeftButtonPressed("Du skal betale indkomstskat. Vil du betale 10% af alle dine værdier eller 4000?","10%","4000")) {
+                    int sumOfTiles = 0;
+                    for (int i = 0; i < 40; i++) {
+                        if (player==game.getBoard().getTiles()[i].getOwner()) {
+                            sumOfTiles+=game.getBoard().getTiles()[i].getPrice();
+                            }
+                        }
+                    int tax =(player.getBalance()+sumOfTiles)/10;
+                    player.withdrawFromBalance(tax);
+                    game.getGui().showMessage("Du betaler " + tax + " kr");
+
+                    } else {
+                    game.getGui().showMessage("Du betaler 4000 kr");
+                    player.withdrawFromBalance(4000);
+                    }
+            }
+            else if(tile.getNumber()==game.getBoard().getTiles()[39].getNumber()) {
+                game.getGui().showMessage("Du skal betale Ekstraordinær statskat. Du betaler 2000 kr");
+                player.withdrawFromBalance(2000);
+                }
+        }
         askBuyHousing(tile,game,player);
     }
 
