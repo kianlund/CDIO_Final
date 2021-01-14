@@ -173,15 +173,16 @@ public class TileHandler{
         }
         if (askToBuyHousing){
             String selection = game.getGui().getUserSelection("Vil du købe husering på en af følgende felter? 1000kr. pris. ",ownedTiles);
-            buyPropertyWithTitle(selection, game);
+            buyPropertyWithTitle(selection, game, player);
         }
     }
 
-    public void buyPropertyWithTitle(String tileToUpgrade, Game game) {
+    public void buyPropertyWithTitle(String tileToUpgrade, Game game, Player player) {
         GameBoard b = game.getBoard();
         for (int i = 0; i < game.getNumberOfTiles(); i++) {
             if (b.getTiles()[i].getGui_field().getTitle().equals(tileToUpgrade)){
                 b.getTiles()[i].setProperty(b.getTiles()[i].getProperty() + 1);
+                player.withdrawFromBalance(1000);
                 if (b.getTiles()[i].getProperty() == 5) {
                     ((GUI_Street) b.getTiles()[i].getGui_field()).setHouses(0);
                     ((GUI_Street) b.getTiles()[i].getGui_field()).setHotel(true);
