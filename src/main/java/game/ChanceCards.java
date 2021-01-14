@@ -1,21 +1,20 @@
 package game;
 
-import java.awt.*;
 import java.util.Random;
 
 public class ChanceCards {
     public final Language chanceCardsStrings;
-    private Game game;
+    private GameController gameController;
     private String defString;
     private Random rand;
     private final String[] colorStrings;
 
-    public ChanceCards(Game game) {
+    public ChanceCards(GameController gameController) {
         chanceCardsStrings = new Language("dkChancecard.txt");
         defString = chanceCardsStrings.getLine(0);
-        this.game = game;
+        this.gameController = gameController;
         rand=new Random();
-        colorStrings = new String[game.getBoard().getTileColor().length];
+        colorStrings = new String[gameController.getBoard().getTileColor().length];
         for (int i = 0; i < colorStrings.length; i++) {
             colorStrings[i] = chanceCardsStrings.getLine(12 + i);
         }
@@ -93,9 +92,9 @@ public class ChanceCards {
     private void SetIPrison(Player player, int num) {
         String message = chanceCardsStrings.getLine(43);
         displayChanceCard(message);
-        message = message.replace("Fængsel", game.getBoard().getTile(num).getGui_field().getDescription());
+        message = message.replace("Fængsel", gameController.getBoard().getTile(num).getGui_field().getDescription());
         int moveNum = num - player.getLocation();
-        player.moveLocation(moveNum, game);
+        player.moveLocation(moveNum, gameController);
 
     }
 
@@ -108,7 +107,7 @@ public class ChanceCards {
     private void Party(Player player) {
         String message = chanceCardsStrings.getLine(47);
         displayChanceCard(message);
-        for (Player p : game.getPlayerList()) {
+        for (Player p : gameController.getPlayerList()) {
             if (p != player) {
                 p.payRent(p, player, 500);
             }
@@ -139,9 +138,9 @@ public class ChanceCards {
     private void movePlayerFreAlle(Player player,int num,int amountGiven) {
         String message = chanceCardsStrings.getLine(46);
         displayChanceCard(message);
-        message = message.replace("F.Alle", game.getBoard().getTile(num).getGui_field().getDescription());
+        message = message.replace("F.Alle", gameController.getBoard().getTile(num).getGui_field().getDescription());
         int moveNum = num - player.getLocation();
-        player.moveLocation(moveNum, game);
+        player.moveLocation(moveNum, gameController);
         if(moveNum>0)
             player.addToBalance(amountGiven);
 
@@ -150,7 +149,7 @@ public class ChanceCards {
     private void movePlayerBack(Player player, int steps) {
         String message = chanceCardsStrings.getLine(40);
         displayChanceCard(message);
-        player.moveLocation(steps, game);
+        player.moveLocation(steps, gameController);
     }
 
     private void giveExtraHusHotel(Player player, int amountTaken) {
@@ -164,7 +163,7 @@ public class ChanceCards {
     private void movePlayerForward(Player player,int steps) {
         String message = chanceCardsStrings.getLine(2);
         displayChanceCard(message);
-        player.moveLocation(steps, game);
+        player.moveLocation(steps, gameController);
     }
 
     private void giveMoney2(Player player, int amountGiven) {
@@ -191,15 +190,15 @@ public class ChanceCards {
     }
 
     private void movePlayer(Player player, int steps) {
-        player.moveLocation(steps, game);
+        player.moveLocation(steps, gameController);
     }
 
     private void moveToStart(Player player) {
         String message = chanceCardsStrings.getLine(1);
         displayChanceCard(message);
         int location = player.getLocation();
-        int moveNum = game.getNumberOfTiles() - location;
-        player.moveLocation(moveNum, game);
+        int moveNum = gameController.getNumberOfTiles() - location;
+        player.moveLocation(moveNum, gameController);
 
     }
 
@@ -213,7 +212,7 @@ public class ChanceCards {
     private void birthday(Player player) {
         String message = chanceCardsStrings.getLine(5);
         displayChanceCard(message);
-        for (Player p : game.getPlayerList()) {
+        for (Player p : gameController.getPlayerList()) {
             if (p != player) {
                 p.payRent(p, player, 200);
             }
@@ -229,18 +228,18 @@ public class ChanceCards {
 
 
     private void moveToLastTile(Player player) {
-        int maxNum = game.getNumberOfTiles();
+        int maxNum = gameController.getNumberOfTiles();
         String message = chanceCardsStrings.getLine(8);
-        message = message.replace("[Last Tile]", game.getBoard().getTile(maxNum - 1).getGui_field().getDescription());
+        message = message.replace("[Last Tile]", gameController.getBoard().getTile(maxNum - 1).getGui_field().getDescription());
         int moveNum = maxNum - player.getLocation() - 1;
         displayChanceCard(message);
-        player.moveLocation(moveNum, game);
+        player.moveLocation(moveNum, gameController);
     }
 
     private void displayChanceCard(String message) {
-        game.getGui().displayChanceCard(message);
-        game.getGui().showMessage(defString);
-        game.getGui().displayChanceCard(" ");
+        gameController.getGui().displayChanceCard(message);
+        gameController.getGui().showMessage(defString);
+        gameController.getGui().displayChanceCard(" ");
     }
 
 

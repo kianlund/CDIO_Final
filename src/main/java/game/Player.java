@@ -59,19 +59,19 @@ public class Player extends GUI_Player {
     /**
      *
      * @param moveNumber How many tiles should the player be moved?
-     * @param game the game class for redrawing the cars in the gui
+     * @param gameController the game class for redrawing the cars in the gui
      */
-    public void moveLocation(int moveNumber, Game game){
-        tilehandler.removeOneCar(game, this);
+    public void moveLocation(int moveNumber, GameController gameController){
+        tilehandler.removeOneCar(gameController, this);
         location += moveNumber;
         while (location >= 40) {
             location -= 40;
-            game.getGui().showMessage(game.getTextStrings().passedStart
-                    + game.getTextStrings().moneyMessage(4000));
+            gameController.getGui().showMessage(gameController.getTextStrings().passedStart
+                    + gameController.getTextStrings().moneyMessage(4000));
             addToBalance(4000);
         }
         tilehandler.landOnField(
-                game.getBoard().getTiles()[location], game,this);
+                gameController.getBoard().getTiles()[location], gameController,this);
     }
 
 
@@ -126,9 +126,9 @@ public class Player extends GUI_Player {
         return false;
     }
 
-    public void startFromPrison(Game game){
+    public void startFromPrison(GameController gameController){
         try {
-            game.getGui().showMessage(game.getTextStrings().playerInprison);
+            gameController.getGui().showMessage(gameController.getTextStrings().playerInprison);
         }
         catch (NullPointerException e) {
             System.err.println("No game initialized");
@@ -136,7 +136,7 @@ public class Player extends GUI_Player {
         if(getOutOfJailCards > 0){
             removeGetOutOfJailCard(1);
             try {
-                game.getGui().showMessage(game.getTextStrings().useJailCard);
+                gameController.getGui().showMessage(gameController.getTextStrings().useJailCard);
             }
             catch (NullPointerException e) {
                 System.err.println("No game initialized");
@@ -146,7 +146,7 @@ public class Player extends GUI_Player {
         else{
             if (withdrawFromBalance(1000)){
                 try {
-                    game.getGui().showMessage(game.getTextStrings().payBail);
+                    gameController.getGui().showMessage(gameController.getTextStrings().payBail);
                 }
                 catch (NullPointerException e) {
                     System.err.println("No game initialized");

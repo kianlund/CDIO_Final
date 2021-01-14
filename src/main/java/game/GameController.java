@@ -5,7 +5,7 @@ import gui_main.GUI;
 
 import java.awt.*;
 
-public class Game {
+public class GameController {
     private final int totalNumPlayers;
     private Player[] playerList;
     private DiceCup cup;
@@ -26,7 +26,7 @@ public class Game {
 
     private Language langStrings = new Language("dkGameString.txt");
 
-    public Game(Boolean test){
+    public GameController(Boolean test){
         initGUIFields();
         gui = new GUI(fields);
         board = new GameBoard(gui.getFields().length, gui.getFields());
@@ -47,7 +47,7 @@ public class Game {
         cup = new DiceCup(1);
         playGame();
     }
-    public Game() {
+    public GameController() {
         initGUIFields();
         gui = new GUI(fields);
         board = new GameBoard(gui.getFields().length, gui.getFields());

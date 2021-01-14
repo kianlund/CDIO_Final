@@ -2,8 +2,6 @@ package game;
 
 import gui_fields.*;
 
-import java.awt.*;
-
 public class TileHandler{
     private int prisonNumber;
     public TileHandler(int prisonAt){
@@ -14,16 +12,16 @@ public class TileHandler{
 
     /**
      * removes the players car from the field and redraws the others
-     * @param game the game
+     * @param gameController the game
      */
-    public void removeOneCar(Game game, Player player){
-        GUI_Field field = game.getGui().getFields()[player.getLocation()];
-        Player replaceCars[] = new Player[game.getTotalNumPlayers()];
+    public void removeOneCar(GameController gameController, Player player){
+        GUI_Field field = gameController.getGui().getFields()[player.getLocation()];
+        Player replaceCars[] = new Player[gameController.getTotalNumPlayers()];
         int j= 0;
-        for(int i =0; i < game.getPlayerList().length; i++ ){
-            if(field.hasCar(game.getPlayerList()[i]) &
-                    !game.getPlayerList()[i].getName().equals(player.getName())){
-                replaceCars[j] = game.getPlayerList()[i];
+        for(int i = 0; i < gameController.getPlayerList().length; i++ ){
+            if(field.hasCar(gameController.getPlayerList()[i]) &
+                    !gameController.getPlayerList()[i].getName().equals(player.getName())){
+                replaceCars[j] = gameController.getPlayerList()[i];
                 j++;
             }
         }
@@ -41,14 +39,14 @@ public class TileHandler{
      * This is what happens when a player lands on a new field
      * @param tile the tile the player lands on
      */
-    public void landOnField(Tile tile, Game game, Player player) {
+    public void landOnField(Tile tile, GameController gameController, Player player) {
 
         tile.getGui_field().setCar(player, true);
-        GameBoard b = game.getBoard();
+        GameBoard b = gameController.getBoard();
 
         if(tile.getGui_field() instanceof GUI_Ownable) {
             if (tile.getOwner() == null) {
-                askBuyTile(tile,game,player);
+                askBuyTile(tile, gameController,player);
             } else if (tile.getOwner() != player) {
                 if (tile.getGui_field() instanceof GUI_Street) {
                     if (b.getTilesByColor(tile.getTileColor())[0].getOwner() ==
@@ -57,85 +55,85 @@ public class TileHandler{
                                     b.getTilesByColor(tile.getTileColor())[2].getOwner() &&
                             tile.getProperty() == 0)
                     {
-                        game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + tile.getRent()[0] * 2);
+                        gameController.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + tile.getRent()[0] * 2);
                         player.payRent(player, tile.getOwner(), tile.getRent()[0] * 2);
                     } else {
-                        game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + tile.getRent()[tile.getProperty()]);
+                        gameController.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + tile.getRent()[tile.getProperty()]);
                         player.payRent(player, tile.getOwner(), tile.getRent()[tile.getProperty()]);
                     }
                 }
                 if (tile.getGui_field() instanceof GUI_Shipping) {
                     int counter = -1;
-                    if (tile.getOwner()==game.getBoard().getTiles()[5].getOwner()){counter++;}
-                    if (tile.getOwner()==game.getBoard().getTiles()[15].getOwner()){counter++;}
-                    if (tile.getOwner()==game.getBoard().getTiles()[20].getOwner()){counter++;}
-                    if (tile.getOwner()==game.getBoard().getTiles()[25].getOwner()){counter++;}
+                    if (tile.getOwner()== gameController.getBoard().getTiles()[5].getOwner()){counter++;}
+                    if (tile.getOwner()== gameController.getBoard().getTiles()[15].getOwner()){counter++;}
+                    if (tile.getOwner()== gameController.getBoard().getTiles()[20].getOwner()){counter++;}
+                    if (tile.getOwner()== gameController.getBoard().getTiles()[25].getOwner()){counter++;}
                     int[] shippingRent = {500, 1000, 2000, 4000};
-                    game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + shippingRent[counter]);
+                    gameController.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + shippingRent[counter]);
                     player.payRent(player, tile.getOwner(), shippingRent[counter]);
                 }
                 if (tile.getGui_field() instanceof GUI_Brewery) {
-                    if (game.getBoard().getTiles()[12].getOwner()==game.getBoard().getTiles()[28].getOwner()){
-                        game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + (game.getCup().getSum()*200));
-                        player.payRent(player, tile.getOwner(), (game.getCup().getSum()*200));
+                    if (gameController.getBoard().getTiles()[12].getOwner()== gameController.getBoard().getTiles()[28].getOwner()){
+                        gameController.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + (gameController.getCup().getSum()*200));
+                        player.payRent(player, tile.getOwner(), (gameController.getCup().getSum()*200));
                     } else {
-                        game.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + (game.getCup().getSum()*100));
-                        player.payRent(player, tile.getOwner(), (game.getCup().getSum()*100));
+                        gameController.getGui().showMessage(tileHandlerText.getLine(0) + " " + tile.getGui_field().getTitle() + ", " + tileHandlerText.getLine(3) + " " + tile.getOwner().getName() + tileHandlerText.getLine(4) + " " + (gameController.getCup().getSum()*100));
+                        player.payRent(player, tile.getOwner(), (gameController.getCup().getSum()*100));
                     }
                 }
             }
         }
         else if(tile.getGui_field() instanceof GUI_Chance){
-            game.drawChance(player);
+            gameController.drawChance(player);
         }
         else if(tile.getGui_field() instanceof GUI_Jail){
-            prisonHandler(tile, player, game);
+            prisonHandler(tile, player, gameController);
         }
         else if(tile.getGui_field() instanceof GUI_Refuge) {
-            game.getGui().showMessage(game.getTextStrings().freeParking);
+            gameController.getGui().showMessage(gameController.getTextStrings().freeParking);
         }
         else if(tile.getGui_field() instanceof GUI_Tax) {
-            if(tile.getNumber()==game.getBoard().getTiles()[4].getNumber()) {
-                if (game.getGui().getUserLeftButtonPressed("Du skal betale indkomstskat. Vil du betale 10% af alle dine værdier eller 4000?","10%","4000")) {
+            if(tile.getNumber()== gameController.getBoard().getTiles()[4].getNumber()) {
+                if (gameController.getGui().getUserLeftButtonPressed("Du skal betale indkomstskat. Vil du betale 10% af alle dine værdier eller 4000?","10%","4000")) {
                     int sumOfTiles = 0;
                     for (int i = 0; i < 40; i++) {
-                        if (player==game.getBoard().getTiles()[i].getOwner()) {
-                            sumOfTiles+=game.getBoard().getTiles()[i].getPrice();
+                        if (player== gameController.getBoard().getTiles()[i].getOwner()) {
+                            sumOfTiles+= gameController.getBoard().getTiles()[i].getPrice();
                         }
                     }
                     int tax =(player.getBalance()+sumOfTiles)/10;
                     player.withdrawFromBalance(tax);
-                    game.getGui().showMessage("Du betaler " + tax + " kr");
+                    gameController.getGui().showMessage("Du betaler " + tax + " kr");
 
                 } else {
-                    game.getGui().showMessage("Du betaler 4000 kr");
+                    gameController.getGui().showMessage("Du betaler 4000 kr");
                     player.withdrawFromBalance(4000);
                 }
             }
-            else if(tile.getNumber()==game.getBoard().getTiles()[39].getNumber()) {
-                game.getGui().showMessage("Du skal betale Ekstraordinær statskat. Du betaler 2000 kr");
+            else if(tile.getNumber()== gameController.getBoard().getTiles()[39].getNumber()) {
+                gameController.getGui().showMessage("Du skal betale Ekstraordinær statskat. Du betaler 2000 kr");
                 player.withdrawFromBalance(2000);
             }
         }
-        askBuyHousing(tile,game,player);
+        askBuyHousing(tile, gameController,player);
     }
 
-    private void askBuyTile(Tile tile, Game game, Player player) {
-        Text textStrings = game.getTextStrings();
+    private void askBuyTile(Tile tile, GameController gameController, Player player) {
+        Text textStrings = gameController.getTextStrings();
         String tileName = tile.getGui_field().getTitle();
-        boolean buyOrNot = game.getGui().getUserLeftButtonPressed("Køb "+tileName+"?", "Ja", "Nej"); //skal bruge dkEngStringssomething !!
+        boolean buyOrNot = gameController.getGui().getUserLeftButtonPressed("Køb "+tileName+"?", "Ja", "Nej"); //skal bruge dkEngStringssomething !!
         if (buyOrNot) {
             textStrings.TileMessage(player);
             player.buyTile(player, tile, false);
         }
     }
 
-    private void askBuyHousing(Tile tile, Game game, Player player) {
+    private void askBuyHousing(Tile tile, GameController gameController, Player player) {
         Boolean askToBuyHousing = false;
         String[] ownedTiles = new String[1];
         ownedTiles[0] = "Nej. Slut tur.";
         String[] tempOwnedTiles;
-        GameBoard b = game.getBoard();
+        GameBoard b = gameController.getBoard();
 
         if (player.getBalance() > 1000) {       // Make sure players has available funds
             for (int i = 0; i < 8; i++)
@@ -172,14 +170,14 @@ public class TileHandler{
             }
         }
         if (askToBuyHousing){
-            String selection = game.getGui().getUserSelection("Vil du købe husering på en af følgende felter? 1000kr. pris. ",ownedTiles);
-            buyPropertyWithTitle(selection, game, player);
+            String selection = gameController.getGui().getUserSelection("Vil du købe husering på en af følgende felter? 1000kr. pris. ",ownedTiles);
+            buyPropertyWithTitle(selection, gameController, player);
         }
     }
 
-    public void buyPropertyWithTitle(String tileToUpgrade, Game game, Player player) {
-        GameBoard b = game.getBoard();
-        for (int i = 0; i < game.getNumberOfTiles(); i++) {
+    public void buyPropertyWithTitle(String tileToUpgrade, GameController gameController, Player player) {
+        GameBoard b = gameController.getBoard();
+        for (int i = 0; i < gameController.getNumberOfTiles(); i++) {
             if (b.getTiles()[i].getGui_field().getTitle().equals(tileToUpgrade)){
                 b.getTiles()[i].setProperty(b.getTiles()[i].getProperty() + 1);
                 player.withdrawFromBalance(1000);
@@ -209,15 +207,15 @@ public class TileHandler{
 //
 //    }
 
-    public void prisonHandler(Tile tile, Player player, Game game){
+    public void prisonHandler(Tile tile, Player player, GameController gameController){
         if(tile.getNumber() != prisonNumber) {
             player.setInPrison(true);
-            game.getGui().showMessage(game.getTextStrings().goToJail);
-            removeOneCar(game, player);
+            gameController.getGui().showMessage(gameController.getTextStrings().goToJail);
+            removeOneCar(gameController, player);
             player.setLocation(prisonNumber);
         }
         else{
-            game.getGui().showMessage(game.getTextStrings().visitingJail);
+            gameController.getGui().showMessage(gameController.getTextStrings().visitingJail);
         }
     }
 }
