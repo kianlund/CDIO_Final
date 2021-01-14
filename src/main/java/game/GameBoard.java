@@ -47,6 +47,8 @@ public class GameBoard {
             {700,3500,10000,22000,26000,30000},
             {1000,4000,12000,28000,34000,40000}
     };
+
+
     private final Color[] colorArray = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.RED, Color.WHITE, Color.PINK, Color.CYAN};
     private int colorCounter;
     private int tileCounter;

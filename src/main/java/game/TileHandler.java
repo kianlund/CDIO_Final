@@ -2,11 +2,24 @@ package game;
 
 import gui_fields.*;
 
+
 public class TileHandler{
     private int prisonNumber;
     public TileHandler(int prisonAt){
         prisonNumber = prisonAt;
     }
+    private final int[] housePrice ={
+            0,1000,0,1000,
+            0,0,1000,0,
+            1000,1000,0,2000,
+            0,2000,2000,0,
+            2000,0,2000,2000,
+            0,3000,0,3000,
+            3000,0,3000,3000,
+            0,3000,0,4000,
+            4000,0,4000,0,
+            0,4000,0,4000
+    };
 
     Language tileHandlerText = new Language("dkFieldText2.txt");
 
@@ -96,12 +109,17 @@ public class TileHandler{
             if(tile.getNumber()== gameController.getBoard().getTiles()[4].getNumber()) {
                 if (gameController.getGui().getUserLeftButtonPressed("Du skal betale indkomstskat. Vil du betale 10% af alle dine værdier eller 4000?","10%","4000")) {
                     int sumOfTiles = 0;
+                    int sumOfHouses = 0;
                     for (int i = 0; i < 40; i++) {
-                        if (player== gameController.getBoard().getTiles()[i].getOwner()) {
-                            sumOfTiles+= gameController.getBoard().getTiles()[i].getPrice();
+                        if (player==gameController.getBoard().getTiles()[i].getOwner()) {
+                            if (gameController.getBoard().getTiles()[i].getProperty()>0){
+                                int amountOfHouses = gameController.getBoard().getTiles()[i].getProperty();
+                                sumOfHouses+=(housePrice[i]*amountOfHouses);
+                            }
+                            sumOfTiles+=gameController.getBoard().getTiles()[i].getPrice();
                         }
                     }
-                    int tax =(player.getBalance()+sumOfTiles)/10;
+                    int tax =(player.getBalance()+sumOfTiles+sumOfHouses)/10;
                     player.withdrawFromBalance(tax);
                     gameController.getGui().showMessage("Du betaler " + tax + " kr");
 
@@ -180,7 +198,7 @@ public class TileHandler{
         for (int i = 0; i < gameController.getNumberOfTiles(); i++) {
             if (b.getTiles()[i].getGui_field().getTitle().equals(tileToUpgrade)){
                 b.getTiles()[i].setProperty(b.getTiles()[i].getProperty() + 1);
-                player.withdrawFromBalance(1000);
+                player.withdrawFromBalance(housePrice[i]);
                 if (b.getTiles()[i].getProperty() == 5) {
                     ((GUI_Street) b.getTiles()[i].getGui_field()).setHouses(0);
                     ((GUI_Street) b.getTiles()[i].getGui_field()).setHotel(true);
