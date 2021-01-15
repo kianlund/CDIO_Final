@@ -16,7 +16,6 @@ int balance ;
         assertEquals(testName, testplayer.getName());
         assertEquals(balance, testplayer.getBalance());
         assertEquals(location, testplayer.getLocation());
-
     }
 
     @BeforeEach

@@ -48,6 +48,7 @@ public class Player extends GUI_Player {
     }
 
 
+
     //returns player location
     public int getLocation() { return location;}
 

@@ -50,8 +50,15 @@ public class TileHandler{
 
     /**
      * This is what happens when a player lands on a new field
-     * @param tile the tile the player lands on
+     * @param gameboard the tile the player lands on
      */
+    public void removeBankruptTiles(GameController gameController, GameBoard gameboard, Player player) {
+        for (int i = 0; i < gameController.getNumberOfTiles(); i++){
+            if (player.getBankrupt() && (gameboard.getTile(i).getOwner() == player)) {
+                gameboard.getTile(i).setOwner(null);
+            }
+        }
+    }
     public void landOnField(Tile tile, GameController gameController, Player player) {
 
         tile.getGui_field().setCar(player, true);

@@ -1,19 +1,19 @@
-Du har trukket et "proev lykken" kort, proev lykken!
+Du har trukket et "prøv lykken" kort, prøv lykken!
 Ryk frem til "start".
-Bevaeg dig 5 felter frem
+Bevæg dig 5 felter frem
 Du har spist for meget slik betal 2 kr til banken
 Du har lavet alle dine lektier, få 2 kr af banken
-Det er Deres foedselsdag. Modtag af hver af dine medspillere kr. 200.
-Du har modtaget et "gå ud af faengslet" kort, du kan bruge dette til at gå ud af faengslet gratis
-Bevaeg dig til den naeste gade [Color] og få den foerste vej gratis, hvis der ikke er nogle tilbage skal du betale rente som normalt
-Bevaeg dig til [Last Tile]
-Bevaeg dig til den naeste [Color1] eller [Color2] vej hvis den ikke er ejet af nogen får du den gratis, ellers skal du betale rente som normalt
+Det er Deres fødselsdag. Modtag af hver af dine medspillere kr. 200.
+Du har modtaget et "gå ud af fængslet" kort, du kan bruge dette til at gå ud af fængslet gratis
+Bevæg dig til den næste gade [Color] og få den første vej gratis, hvis der ikke er nogle tilbage skal du betale rente som normalt
+Bevæg dig til [Last Tile]
+Bevæg dig til den næste [Color1] eller [Color2] vej hvis den ikke er ejet af nogen får du den gratis, ellers skal du betale rente som normalt
  fik
  gratis
-roed
+rød
 gul
-groen
-blaa
+grøn
+blå
 orange
 cyan
 pink

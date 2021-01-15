@@ -11,7 +11,7 @@ public class GameController {
     private DiceCup cup;
     private GameBoard board;
     private GUI gui;
-    private final int startBalance = 30000;
+    private final int startBalance = 5000;
     private final int startLocation = 0;
     private final int numberOfTiles = 40;
     private final int prisonLocation = 10;
@@ -100,11 +100,11 @@ public class GameController {
         {
             for (int i = 0; i < playerList.length; i++) {   //A full round
                 Player player = playerList[i];
-                while (player.getBankrupt()) { // Skip bankrupt players
+                if (player.getBankrupt()) { // Skip bankrupt players
+                    gui.showMessage(player.getName() + langStrings.getLine(5));
                     tileHandler.removeOneCar(this,player);
-                    i++;
-                    if (i > playerList.length) {i = 0;}
-                    player = playerList[i];
+                    tileHandler.removeBankruptTiles(this, board, player);
+                    continue;
                 }
                 if (player.getPrison()){
                     player.startFromPrison(this);
@@ -117,16 +117,32 @@ public class GameController {
                 gui.setDice(a,b);
                 player.moveLocation(a+b, this);
                 gui.getFields()[player.getLocation()].setCar(player, true);
-                if (player.getBankrupt()) {
-                    gui.showMessage(player.getName() + langStrings.getLine(5));
-                    resolveGame(player,winnerID);
-                    break;
                 }
+            winnerID = resolveGame();
+            if (winnerID > -1) {
+                gui.showMessage(playerList[winnerID].getName() + langStrings.getLine(4));
             }
+
         }
     }
 
-    private void resolveGame(Player p, int winner) {
+
+
+    private int resolveGame() {
+        int nonBankrupt = 0;
+        for (int i = 0; i < playerList.length; i++) {
+            if (!playerList[i].getBankrupt()) {
+                nonBankrupt++;
+            }
+        }
+        if (nonBankrupt == 1) {
+            for (int i = 0; i < playerList.length; i++) {
+                if (!playerList[i].getBankrupt()) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     private void addPlayers(int a) {
