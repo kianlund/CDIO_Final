@@ -121,7 +121,7 @@ public class TileHandler{
                         if (player==gameController.getBoard().getTiles()[i].getOwner()) {
                             if (gameController.getBoard().getTiles()[i].getProperty()>0){
                                 int amountOfHouses = gameController.getBoard().getTiles()[i].getProperty();
-                                sumOfHouses+=(housePrice[i]*amountOfHouses);
+                                sumOfHouses+=(1000*amountOfHouses);
                             }
                             sumOfTiles+=gameController.getBoard().getTiles()[i].getPrice();
                         }
