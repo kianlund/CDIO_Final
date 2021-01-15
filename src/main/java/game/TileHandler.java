@@ -205,7 +205,7 @@ public class TileHandler{
         for (int i = 0; i < gameController.getNumberOfTiles(); i++) {
             if (b.getTiles()[i].getGui_field().getTitle().equals(tileToUpgrade)){
                 b.getTiles()[i].setProperty(b.getTiles()[i].getProperty() + 1);
-                player.withdrawFromBalance(housePrice[i]);
+                player.withdrawFromBalance(1000);
                 if (b.getTiles()[i].getProperty() == 5) {
                     ((GUI_Street) b.getTiles()[i].getGui_field()).setHouses(0);
                     ((GUI_Street) b.getTiles()[i].getGui_field()).setHotel(true);
