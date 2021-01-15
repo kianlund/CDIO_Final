@@ -1,8 +1,8 @@
 Indtast antallet af spillere
 Indtast spillerens navn
 's tur.
-har vundet spillet! Tillykke!
+ har vundet spillet! Tillykke!
 Kast terninger!
-har gået bankerot, har tabt!
+ er gået bankerot og har tabt!
 Det er uafgjort! Alle ejendomme er nu inkluderet i vurderingen af vinderen:
 

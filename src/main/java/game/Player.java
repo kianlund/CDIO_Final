@@ -36,7 +36,7 @@ public class Player extends GUI_Player {
 
     public boolean withdrawFromBalance(int payment){
         int newBalance = getBalance() - payment;
-        if (newBalance < 0){
+        if (newBalance <= 0){
             bankrupt = true;
             setBalance(0);
             return false;

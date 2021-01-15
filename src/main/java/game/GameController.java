@@ -100,10 +100,7 @@ public class GameController {
         {
             for (int i = 0; i < playerList.length; i++) {   //A full round
                 Player player = playerList[i];
-                if (player.getBankrupt()) { // Skip bankrupt players
-                    gui.showMessage(player.getName() + langStrings.getLine(5));
-                    tileHandler.removeOneCar(this,player);
-                    tileHandler.removeBankruptTiles(this, board, player);
+                if (player.getBankrupt()) { // Skip bankrupt player
                     continue;
                 }
                 if (player.getPrison()){
@@ -116,13 +113,18 @@ public class GameController {
 //                int a = 1;
                 gui.setDice(a,b);
                 player.moveLocation(a+b, this);
-                gui.getFields()[player.getLocation()].setCar(player, true);
+                if (player.getBankrupt()) { // Skip bankrupt players
+                    gui.showMessage(player.getName() + langStrings.getLine(5));
+                    tileHandler.removeOneCar(this,player);
+                    tileHandler.removeBankruptTiles(this, board, player);
                 }
-            winnerID = resolveGame();
-            if (winnerID > -1) {
-                gui.showMessage(playerList[winnerID].getName() + langStrings.getLine(4));
+                gui.getFields()[player.getLocation()].setCar(player, true);
+                winnerID = resolveGame();
+                if (winnerID > -1) {
+                    gui.showMessage(player.getName()+ langStrings.getLine(3));
+                    break;
+                }
             }
-
         }
     }
 
