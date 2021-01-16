@@ -52,7 +52,7 @@ int balance ;
         testplayer.payRent(testplayer, otherPlayer, tooMuchRent);
         assertEquals(testplayer.getBankrupt(), true);
         assertEquals(testplayer.getBalance(), 0);
-        assertEquals(otherPlayer.getBalance(), 2000);
+        assertEquals(otherPlayer.getBalance(), 1200);
     }
 
     @Test
