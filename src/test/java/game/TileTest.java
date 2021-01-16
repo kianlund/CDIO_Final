@@ -1,7 +1,9 @@
 package game;
 
+import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Street;
+import gui_main.GUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +29,7 @@ class TileTest {
         number = 1;
         rent = 5;
         color = Color.RED;
-        owner = new Player("owner", pBalance, 0, null, null);
+        owner = new Player("test",5,0,new GUI_Car(),null)
 
         testTile = new Tile(rent, gui_field, number);
     }
