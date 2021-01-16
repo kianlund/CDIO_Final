@@ -29,7 +29,7 @@ class TileTest {
         number = 1;
         rent = 5;
         color = Color.RED;
-        owner = new Player("test",5,0,new GUI_Car(),null)
+        owner = new Player("test",5,0,new GUI_Car(),null);
 
         testTile = new Tile(rent, gui_field, number);
     }
