@@ -11,7 +11,7 @@ public class GameController {
     private DiceCup cup;
     private GameBoard board;
     private GUI gui;
-    private final int startBalance = 5000;
+    private final int startBalance = 30000;
     private final int startLocation = 0;
     private final int numberOfTiles = 40;
     private final int prisonLocation = 10;
