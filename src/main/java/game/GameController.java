@@ -121,7 +121,7 @@ public class GameController {
                 gui.getFields()[player.getLocation()].setCar(player, true);
                 winnerID = resolveGame();
                 if (winnerID > -1) {
-                    gui.showMessage(player.getName()+ langStrings.getLine(3));
+                    gui.showMessage(playerList[winnerID].getName()+ langStrings.getLine(3));
                     break;
                 }
             }
