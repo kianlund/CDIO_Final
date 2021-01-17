@@ -1,10 +1,8 @@
 package game;
 
-import com.company.Main;
 import gui_fields.*;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 
 
 /**
@@ -13,46 +11,83 @@ import java.lang.reflect.Array;
  */
 public class GameBoard {
     private Tile[] tiles;
-    private final int[] effects={2,1,1,0,1,1,0,2,2,0,2,2,0,3,3,0,3,3,0,4,4,0,5,5};
-    private final Color[] tileColor = {Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.PINK, Color.WHITE};
-    private int[][] colorArr;
-    private int colorCounter;
-    private int arraySize;
+    private final int[] tilePrice ={
+            4000,1200,0,1200,
+            0,4000,2000,0,
+            2000,2400,0,2800,
+            3000,2800,3200,4000,
+            3600,0,3600,4000,
+            0,4400,0,4400,
+            4800,4000,5200,5200,
+            3000,5600,0,6000,
+            6000,0,6400,4000,
+            0,7000,0,8000};
 
-    private Language tileStrings = new Language("engTileStrings.txt");
+    private final int[][] houseRent ={
+            {50,250,750,2250,4000,6000},
+            {50,250,750,2250,4000,6000},
+            {100,600,1800,5400,8000,11000},
+            {100,600,1800,5400,8000,11000},
+            {150,600,2000,6000,9000,12000},
+            {200,1000,3000,9000,12500,15000},
+            {200,1000,3000,9000,12500,15000},
+            {250,1250,3750,10000,14000,18000},
+            {300,1400,4000,11000,15000,19000},
+            {300,1400,4000,11000,15000,19000},
+            {350,1600,4400,12000,16000,20000},
+            {350,1800,5000,14000,17500,21000},
+            {350,1800,5000,14000,17500,21000},
+            {400,2000,6000,15000,18500,22000},
+            {450,2200,6600,16000,19500,23000},
+            {450,2200,6600,16000,19500,23000},
+            {500,2400,7200,17000,20500,24000},
+            {550,2600,7800,18000,22000,25000},
+            {550,2600,7800,18000,22000,25000},
+            {600,3000,9000,20000,24000,28000},
+            {700,3500,10000,22000,26000,30000},
+            {1000,4000,12000,28000,34000,40000}
+    };
+
+
+    private final Color[] colorArray = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.RED, Color.WHITE, Color.PINK, Color.CYAN};
+    private int colorCounter;
+    private int tileCounter;
+    private int rentCounter;
+
+    private Language tileStrings = new Language("dkTileStrings.txt");
 
     public GameBoard (int numOfTiles, GUI_Field[] gui_fields) {
         tiles = new Tile[numOfTiles];
-        //tiles[0] = new Tile();
+        colorCounter = 0;
+        rentCounter = 0;
+        tileCounter = 1;
         for (int i = 0; i < numOfTiles; i++) {
-            tiles[i] = new Tile(effects[i],gui_fields[i], i);
-            if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Start) {
+            tiles[i] = new Tile(tilePrice[i],gui_fields[i], i);
+            if (gui_fields[i] instanceof GUI_Street || gui_fields[i] instanceof GUI_Brewery || gui_fields[i] instanceof GUI_Shipping) {
                 tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
-                tiles[i].getGui_field().setSubText("M"+effects[i]);
+                tiles[i].getGui_field().setSubText("Pris: "+ tilePrice[i]+"kr.");
+                tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
+                if (gui_fields[i] instanceof GUI_Street) {
+                    tiles[i].setTileColor(colorArray[colorCounter]);
+                    tiles[i].getGui_field().setBackGroundColor(colorArray[colorCounter]);
+                    tiles[i].setRent(houseRent[rentCounter]);
+                    rentCounter++;
+                    tileCounter++;
+                    if (tileCounter == 3) {tileCounter = 0; colorCounter++;}
+                }
+            } else if (gui_fields[i] instanceof GUI_Start) {
+                tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
+                tiles[i].getGui_field().setSubText("+"+ tilePrice[i]+"kr.");
+                tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
+            } else if (gui_fields[i] instanceof GUI_Tax) {
+                tiles[i].getGui_field().setTitle(tileStrings.getLine(i));
+                tiles[i].getGui_field().setSubText("");
                 tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             } else {
                 tiles[i].getGui_field().setSubText(tileStrings.getLine(i));
                 tiles[i].getGui_field().setDescription(tileStrings.getLine(i));
             }
-        }
 
-        //Setup board colors
-        colorCounter = 0;
-        arraySize = 2;
-        colorArr = new int[tileColor.length][arraySize];
-        // Doesn't scale with board size, arraySize is the number of color-grouped tiles
-        int j = 0;
-        for (int i = 1; i < numOfTiles; i++) {
-            if (gui_fields[i] instanceof GUI_Street) {
-
-                tiles[i].setTileColor(tileColor[colorCounter]);
-                tiles[i].getGui_field().setBackGroundColor(tileColor[colorCounter]);
-                colorArr[colorCounter][j++] = i;
-            }
-            else {
-                j = 0;
-                colorCounter++;
-            }
         }
     }
 
@@ -64,39 +99,26 @@ public class GameBoard {
         return tiles;
     }
 
-    public int[] getColorArray(Color c) { //Returns 1-dimensional array with the color appropriate tiles
-        int[] tempArr = new int[arraySize];
-        tempArr[0] = 0; //default
-        tempArr[1] = 0; //default
-        for (int i = 0; i < tileColor.length; i++) {
-            if (c == tileColor[i]) {
-                for (int j = 0; j < arraySize; j++) {
-                    tempArr[j] = colorArr[i][j];
-                }
-            }
-        }
-        return tempArr;
-    }
+    public Tile[] getTilesByColor(Color c) {
+        int counter = 0;
+        Tile[] coloredTiles = new Tile[3];
 
-    public Color[] getTileColor() {return tileColor;}
-
-    public int getRent(Tile tile){
-        if(tile.getOwner() != null){
-            Player owner = tile.getOwner();
-            int[] checklist = getColorArray(tile.getTileColor());
-            for (int i = 0; i < checklist.length; i++){
-                Tile otherTile;
-                if(checklist[i] != tile.getNumber()){
-                    otherTile = tiles[checklist[i]];
-                    if(tile.getOwner() == otherTile.getOwner()){
-                        return tile.getRent()*2;
+        for (int i = 0; i < 40; i++) {
+            if (tiles[i].getTileColor() == c) {
+                coloredTiles[counter] = tiles[i];
+                counter++;
+                if (c == Color.BLUE || c == Color.CYAN) {
+                    if (counter == 2) {
+                        coloredTiles[2] = coloredTiles[1];
+                        break;
                     }
                 }
             }
         }
-        return tile.getRent();
+        return coloredTiles;
     }
 
+    public Color[] getTileColor() {return colorArray;}
 
 }
 

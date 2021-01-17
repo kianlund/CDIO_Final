@@ -1,7 +1,9 @@
 package game;
 
+import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Street;
+import gui_main.GUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +29,7 @@ class TileTest {
         number = 1;
         rent = 5;
         color = Color.RED;
-        owner = new Player("owner", pBalance, 0, null, null);
+        owner = new Player("test",5,0,new GUI_Car(),null);
 
         testTile = new Tile(rent, gui_field, number);
     }
@@ -39,14 +41,14 @@ class TileTest {
 
         assertEquals(testTile.getDescription(), testName);
         assertEquals(testTile.getNumber(), number);
-        assertEquals(testTile.getRent(), rent);
+        assertEquals(testTile.getPrice(), rent);
         assertEquals(testTile.getGui_field().getTitle(), testName);
         assertEquals(testTile.getGui_field().getSubText(), Integer.toString(number));
         assertNull(testTile.getOwner());
     }
     @Test
     void getRent() {
-        assertEquals(rent, testTile.getRent());
+        assertEquals(rent, testTile.getPrice());
     }
 
     @Test

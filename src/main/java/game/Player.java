@@ -36,9 +36,9 @@ public class Player extends GUI_Player {
 
     public boolean withdrawFromBalance(int payment){
         int newBalance = getBalance() - payment;
-        if (newBalance < 0){
+        if (newBalance <= 0){
             bankrupt = true;
-
+            setBalance(0);
             return false;
         }
         else{
@@ -46,6 +46,7 @@ public class Player extends GUI_Player {
             return true;
         }
     }
+
 
 
     //returns player location
@@ -59,25 +60,25 @@ public class Player extends GUI_Player {
     /**
      *
      * @param moveNumber How many tiles should the player be moved?
-     * @param game the game class for redrawing the cars in the gui
+     * @param gameController the game class for redrawing the cars in the gui
      */
-    public void moveLocation(int moveNumber, Game game){
-        tilehandler.removeOneCar(game, this);
+    public void moveLocation(int moveNumber, GameController gameController){
+        tilehandler.removeOneCar(gameController, this);
         location += moveNumber;
-        while (location >= 24) {
-            location -= 24;
-            game.getGui().showMessage(game.getTextStrings().passedStart
-                    + game.getTextStrings().moneyMessage(2));
-            addToBalance(2);
+        while (location >= 40) {
+            location -= 40;
+            gameController.getGui().showMessage(gameController.getTextStrings().passedStart
+                    + gameController.getTextStrings().moneyMessage(4000));
+            addToBalance(4000);
         }
         tilehandler.landOnField(
-                game.getBoard().getTiles()[location], game,this);
+                gameController.getBoard().getTiles()[location], gameController,this);
     }
 
 
     public void buyTile(Player player, Tile tile, boolean getFree){
         if(!getFree){
-            if(withdrawFromBalance(tile.getRent())){
+            if(withdrawFromBalance(tile.getPrice())){
                 tile.setOwner(this);
             }
             else{
@@ -126,9 +127,9 @@ public class Player extends GUI_Player {
         return false;
     }
 
-    public void startFromPrison(Game game){
+    public void startFromPrison(GameController gameController){
         try {
-            game.getGui().showMessage(game.getTextStrings().playerInprison);
+            gameController.getGui().showMessage(gameController.getTextStrings().playerInprison);
         }
         catch (NullPointerException e) {
             System.err.println("No game initialized");
@@ -136,7 +137,7 @@ public class Player extends GUI_Player {
         if(getOutOfJailCards > 0){
             removeGetOutOfJailCard(1);
             try {
-                game.getGui().showMessage(game.getTextStrings().useJailCard);
+                gameController.getGui().showMessage(gameController.getTextStrings().useJailCard);
             }
             catch (NullPointerException e) {
                 System.err.println("No game initialized");
@@ -144,9 +145,9 @@ public class Player extends GUI_Player {
             prison = false;
         }
         else{
-            if (withdrawFromBalance(2)){
+            if (withdrawFromBalance(1000)){
                 try {
-                    game.getGui().showMessage(game.getTextStrings().payBail);
+                    gameController.getGui().showMessage(gameController.getTextStrings().payBail);
                 }
                 catch (NullPointerException e) {
                     System.err.println("No game initialized");

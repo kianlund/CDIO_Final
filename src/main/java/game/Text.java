@@ -6,7 +6,7 @@ import gui_main.GUI;
 
 public class Text {
     private GUI_Field[] fields;
-    private Game game;
+    private GameController gameController;
     public final Language textStrings;
     private final String landString;
     private final String unOwnedString;
@@ -28,8 +28,8 @@ public class Text {
     private Player player;
     int location;
 
-    public Text(Game game) {
-        textStrings = new Language("engFieldText.txt");
+    public Text(GameController gameController) {
+        textStrings = new Language("dkFieldText2.txt");
         int i = 0;
         landString = textStrings.getLine(i++);
         unOwnedString = textStrings.getLine(i++);
@@ -45,9 +45,9 @@ public class Text {
         freeParking= textStrings.getLine(i++);
         passedStart = textStrings.getLine(i++);
         visitingJail = textStrings.getLine(i++);
-        this.game = game;
-        board = game.getBoard();
-        gui = game.getGui();
+        this.gameController = gameController;
+        board = gameController.getBoard();
+        gui = gameController.getGui();
     }
 
 
@@ -65,8 +65,9 @@ public class Text {
         else{
             finalmsg += ownedOtherStringFirst + " " + tile.getOwner().getName() + ownedOtherStringLast;
         }
-        finalmsg += " " + Integer.toString(game.getBoard().getRent(tile));
-        if(tile.getRent() > 1){
+        //finalmsg += " " + Integer.toString(game.getBoard().getRent(tile));
+        finalmsg += " " + gameController.getBoard().getTiles()[player.getLocation()].getPrice();
+        if(tile.getPrice() > 1){
             finalmsg += currencyPlural;
         }
         else{
@@ -75,7 +76,7 @@ public class Text {
         displayMessage(finalmsg);
     }
     private void displayMessage(String message) {
-        game.getGui().showMessage(message);
+        gameController.getGui().showMessage(message);
     }
     
         public GameBoard getBoard() {
